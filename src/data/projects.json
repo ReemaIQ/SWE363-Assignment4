@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "title": "Estimation of Obesity Levels",
+    "date": "May 2025",
+    "institution": "KFUPM",
+    "img": "src/assets/images/ML stkr.png",
+    "alt": "Machine Learning Sticker",
+    "description": "Built ML models (KNN, SVM, DNN) to predict obesity levels from lifestyle and health data, achieving up to 97% accuracy.",
+    "skills": ["Python", "AI", "Machine Learning"]
+  },
+  {
+    "id": 2,
+    "title": "KFUPM Student Impact Hub",
+    "date": "May 2025",
+    "institution": "KFUPM",
+    "img": "src/assets/images/kfupm stkr.png",
+    "alt": "KFUPM Pink Sticker",
+    "description": "Designed requirements, use cases, and Figma prototypes for a student hub, ensuring traceability and usability.",
+    "skills": ["Requirements Engineering", "Figma"]
+  },
+  {
+    "id": 3,
+    "title": "Soccer@KFUPM",
+    "date": "May 2025",
+    "institution": "KFUPM",
+    "img": "src/assets/images/soccer stkr.png",
+    "alt": "Football Sticker",
+    "description": "Developed a full-stack tournament management system with PostgreSQL, Flask, and front-end tools to manage teams, matches, and stats.",
+    "skills": ["PostgreSQL", "Flask", "Full-Stack"]
+  },
+  {
+    "id": 4,
+    "title": "Identifying At-Risk Students",
+    "date": "Dec 2024",
+    "institution": "KFUPM",
+    "img": "src/assets/images/danger stkr.png",
+    "alt": "Danger Sticker",
+    "description": "Applied Decision Tree, Naive Bayes, and Random Forest to predict at-risk students using survey and academic data.",
+    "skills": ["Python", "Data Science", "ML"]
+  },
+  {
+    "id": 5,
+    "title": "Multi-Index Student Records",
+    "date": "Dec 2024",
+    "institution": "KFUPM",
+    "img": "src/assets/images/excel stkr.png",
+    "alt": "Excel Sticker",
+    "description": "Implemented B-Trees, Hash Tables, and Multi-Way Trees in Java for efficient indexing and management of student records.",
+    "skills": ["Java", "Data Structures"]
+  },
+  {
+    "id": 6,
+    "title": "Student Club Management Platform",
+    "date": "Dec 2024",
+    "institution": "KFUPM",
+    "img": "src/assets/images/club stkr.png",
+    "alt": "Club Sticker",
+    "description": "Prototyped a platform for managing clubs, events, and memberships with role-based dashboards and UI/UX design.",
+    "skills": ["Figma", "System Design"]
+  },
+  {
+    "id": 7,
+    "title": "Event Booking System in Java",
+    "date": "May 2024",
+    "institution": "KFUPM",
+    "img": "src/assets/images/ticket stkr.png",
+    "alt": "Ticket Sticker",
+    "description": "Built an event booking system with JavaFX, supporting admin/user roles, event management, and interactive GUI.",
+    "skills": ["Java", "OOP", "JavaFX"]
+  },
+  {
+    "id": 8,
+    "title": "Library Management System",
+    "date": "Dec 2023",
+    "institution": "KFUPM",
+    "img": "src/assets/images/book stkr.png",
+    "alt": "Book Sticker",
+    "description": "Developed a Python/C system to manage books, borrowers, and transactions with search, add, update, and delete features.",
+    "skills": ["Python", "C", "Programming"]
+  }
+]

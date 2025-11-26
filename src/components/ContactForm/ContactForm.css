@@ -1,0 +1,241 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    --cf-width: 900px;
+    --rb-text: #fff;
+    --rb-subtext: #cfc7ff;
+    --rb-surface: rgba(255,255,255,0.06);
+    --rb-stroke: rgba(255,255,255,0.18);
+    --rb-skill-bg: rgba(255,255,255,0.10);
+}
+
+/* ===== CONTACT SECTION ===== */
+.cf {
+    padding: 60px 0;
+    font-family: "Inter", system-ui, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: var(--rb-text);
+}
+
+.cf__container {
+    width: 100%;
+    max-width: var(--cf-width);
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* ===== TITLE ===== */
+.cf__title {
+    margin-bottom: 28px;
+    text-align: center;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--rb-text);
+}
+
+/* ===== SOCIAL CHIPS ===== */
+.cf__socials {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    margin-bottom: 24px;
+}
+
+.cf-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: 999px;
+    background: var(--rb-skill-bg);
+    color: var(--rb-text);
+    border: 1px solid var(--rb-stroke);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: transform 0.15s ease, box-shadow 0.25s ease, background 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+.cf-chip:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* ===== OUTER GLASS CARD ===== */
+.cf-card {
+    border-radius: 24px;
+    background: var(--rb-surface);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--rb-stroke);
+    box-shadow:
+            0 18px 48px rgba(0, 0, 0, 0.12),
+            inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    padding: 50px;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+/* ===== INNER CONTENT ===== */
+.cf-inner {
+    width: 100%;
+    max-width: 680px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ===== FORM GRID ===== */
+.cf-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 22px;
+    width: 100%;
+    margin-bottom: 25px;
+}
+@media (min-width: 720px) {
+    .cf-grid { grid-template-columns: 1fr 1fr; }
+    .cf-field--full { grid-column: 1 / -1; }
+}
+
+/* ===== FIELDS ===== */
+.cf-field {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    width: 100%;
+}
+
+.cf-label {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--rb-subtext);
+    padding-left: 4px;
+}
+
+/* ===== INPUTS ===== */
+.cf-input {
+    box-sizing: border-box;
+    width: 100%;
+    border-radius: 16px;
+    border: 1px solid var(--rb-stroke);
+    background: color-mix(in oklab, var(--rb-surface) 90%, transparent 10%);
+    color: var(--rb-text);
+    font-size: 1rem;
+    padding: 14px 16px;
+    outline: none;
+    transition: box-shadow 0.25s ease, transform 0.15s ease, background 0.15s ease;
+}
+.cf-input:focus {
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    transform: translateY(-1px);
+}
+.cf-textarea {
+    resize: vertical;
+    min-height: 180px;
+    line-height: 1.5;
+}
+
+/* ===== ERRORS ===== */
+.cf-err {
+    color: #ff5e7b;
+    font-size: 0.85rem;
+    margin-top: 2px;
+}
+
+/* ===== ACTIONS ===== */
+.cf-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+/* ===== BUTTONS ===== */
+.cf-btn {
+    appearance: none;
+    border: 0;
+    background: none;
+    font: inherit;
+    line-height: 1;
+}
+
+/* ===== SEND BUTTON ===== */
+.cf-btn--glass {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 28px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(16px);
+    color: var(--rb-text);
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow:
+            0 4px 16px rgba(0, 0, 0, 0.08),
+            inset 0 1px 1px rgba(255, 255, 255, 0.3);
+}
+.cf-btn--glass:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px);
+    box-shadow:
+            0 10px 25px rgba(255, 255, 255, 0.25),
+            inset 0 1px 1px rgba(255, 255, 255, 0.4);
+}
+.cf-btn--glass:active {
+    transform: translateY(1px);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+.cf-btn--glass[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* ===== STATUS ===== */
+.cf-status {
+    margin-top: 14px;
+    text-align: center;
+    opacity: 0.85;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+/* ===== LOADER ===== */
+.cf-loader {
+    display: inline-flex;
+    gap: 4px;
+    align-items: center;
+}
+.cf-loader span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--rb-text);
+    opacity: 0.9;
+    display: inline-block;
+    animation: cfPulse 1s infinite ease-in-out;
+}
+.cf-loader span:nth-child(2) { animation-delay: 0.15s; }
+.cf-loader span:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes cfPulse {
+    0%, 80%, 100% { transform: scale(0.6); opacity: 0.6; }
+    40% { transform: scale(1); opacity: 1; }
+}

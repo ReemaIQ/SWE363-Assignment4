@@ -1,0 +1,312 @@
+/* ===================== GLOBAL BACKGROUND ===================== */
+body {
+    margin: 0;                         /* Remove default browser margins so the background spans edge-to-edge */
+    font-family: 'Verdana', sans-serif;/* Base font for the whole page */
+    color: #fff;                       /* Default text color: white (good contrast on dark bg) */
+    background: #0b0716;               /* Deep indigo/black base color behind all effects */
+    position: relative;                /* Establish a positioning context for ::before/::after fixed layers ,
+                                        Prepares the body so its special background layers (added below) can be positioned correctly in relation to it.*/
+    min-height: 100vh;                 /* Make sure the page is at least as tall as the screen height (vh = “viewport height”). */
+    scroll-behavior: smooth;           /* When you click a link that jumps to a section, the page scrolls smoothly instead of instantly.) */
+}
+
+
+
+/* ===== Background layers ===== */
+/*body::before, body::after, Create two extra, fake elements attached to the body. We’ll use them to paint fancy backgrounds.*/
+
+body::before,
+body::after {
+    content: "";                       /* Required to display pseudo-elements */
+    position: fixed;                   /* Fix to viewport so they don’t scroll with content */
+    inset: -20%;                       /* Make each layer bigger than the screen by 20% on all sides. This avoids seeing edges when things wiggle. */
+    z-index: -2;                       /* Place behind everything else on the page */
+}
+
+
+/* ========== (1) Glow blobs layer ========== */
+body::before {
+    /* Stack several radial gradients to create soft neon blobs.
+       Each gradient uses: radial-gradient(<size> at <pos>, <color>, transparent <stop>) */
+    background:
+            radial-gradient(35% 30% at 20% 20%, rgba(179,0,255,.65), transparent 60%), /* A purple glow: an oval (35% by 30% of the screen), positioned near the top-left (20% across, 20% down). It fades to transparent after 60%. */
+            radial-gradient(40% 30% at 80% 75%, rgba(106,0,255,.55), transparent 60%), /* violet glow, bottom-right */
+            radial-gradient(30% 25% at 10% 90%, rgba(130,0,255,.45), transparent 65%), /* soft purple, bottom-left */
+            radial-gradient(45% 35% at 90% 15%, rgba(186,0,255,.35), transparent 70%), /* soft magenta, top-right */
+            radial-gradient(120% 100% at 50% 120%, #0b0716, #0b0716);                  /* A big safety blanket of the base color so gaps are filled. */
+    filter: blur(4px);                /* Slightly blur all those glows so they melt together smoothly. */
+}
+
+
+/* ========== (2) Silky folds layer ========== */
+body::after {
+    /* Combine conic-gradients (great for “ribbon” highlights) with a radial base.
+       Whites are semi-transparent so they act like light hitting fabric. */
+    background:
+            conic-gradient(from 200deg at 70% 30%, rgba(255,255,255,.12), transparent 30%), /* A curved light streak starting at a spot near the top-right. Very transparent white so it looks like a shine. */
+            conic-gradient(from 20deg  at 25% 60%, rgba(255,255,255,.10), transparent 28%), /* highlight sweep near left/center */
+            radial-gradient(120% 120% at 50% 40%, rgba(42,10,90,.9), rgba(11,7,22,1) 70%);  /* deep purple base/center */
+    mix-blend-mode: screen;          /* Blend highlights with the blobs below. “Screen” makes light areas add together (like real light), giving that glowing feel. */
+    filter: blur(20px) contrast(1.1) saturate(1.2); /* Big blur to soften, a bit more contrast and color intensity to pop. */
+    animation: folds 16s ease-in-out infinite alternate; /* Slow drift to simulate fabric breathing/motion */
+}
+
+/* Keyframes for silky folds: tiny movement + micro rotation to keep it alive */
+@keyframes folds {
+    0%   { transform: translateX(-2%) translateY(1%) rotate(-.3deg); } /* At the start: shift slightly left/down and tiny rotation. */
+    100% { transform: translateX(2%)  translateY(-1%) rotate(.2deg); } /* At the end: shift slightly right/up and tiny rotation. */
+    /*The browser loops between these two positions, back and forth.*/
+}
+
+
+/* ===================== NAVBAR ===================== */
+.navbar {
+    position: fixed;                      /* Keep nav pinned to the top on scroll */
+    top: 0;                               /* Align to top edge */
+    width: 100%;                          /* Full width bar */
+    background: rgba(20, 1, 40, 0.6);     /* Translucent dark purple so background shows through */
+    backdrop-filter: blur(6px);           /* Glassy blur (supported in modern browsers) */
+    z-index: 10;                          /* Above content and background layers */
+    padding: 0.9rem 0;                    /* Vertical padding for breathing room */
+}
+
+.navbar ul {
+
+    /* Style the list that holds the links. */
+    list-style-type: none;                 /* removes bullets */
+    display: flex;                        /* Horizontal layout for nav items */
+    justify-content: center;              /* Center the list */
+    gap: 2rem;                            /* Even spacing between links */
+    list-style: none;                     /* Remove bullets */
+    /* Remove default spacing the browser adds to lists. */
+    margin: 0;                            /* Reset default list margin */
+    padding: 0;                           /* Reset default list padding */
+}
+
+.navbar a {
+    /* Style each link. */
+    color: #fff;                          /* White links for contrast */
+    font-weight: bold;                    /* Stronger visual weight */
+    text-decoration: none;                /* Remove underlines */
+    transition: color .3s;                /* Smooth color change on hover/active */
+}
+.navbar a:visited {
+    text-decoration: none;  /* no underline ever */
+}
+
+.navbar a:hover {
+    /* When you hover, turn the link a soft neon purple.*/
+    color: #b177f5;                       /* Soft neon purple hover color */
+}
+
+/* ===================== SECTIONS ===================== */
+.project-stickers {
+    width: 100px;          /* adjust size */
+    height: auto;          /* keep proportions */
+    margin: 0 auto 1rem;   /* centers horizontally + keeps space below */
+    display: block;        /* required for margin auto to work */
+}
+
+
+strong {
+    font-weight: bold;   /* already bold by default, but we keep it */
+    font-size: 1.2em;    /* makes it 1.5x bigger than the surrounding text */
+}
+
+section {
+    /*General styling for each content block.*/
+    padding: 10rem 2rem;                   /* Large vertical rhythm; room for content under the fixed nav */
+    font-size: 1.3rem;                     /* Font size*/
+    text-align: justify;                   /* justify the main text */
+    text-align-last: center;               /* center the last line */
+    max-width: 1000px;                     /* Keep lines short enough to read comfortably */
+    margin: 0 auto;                       /* Center the block horizontally */
+}
+
+section h2 {
+    /*Style the section titles.*/
+    font-size: 3rem;                      /* Section title size */
+    margin-bottom: 3rem;                  /* Space below headings */
+    color: #eadaff;                       /* Lavender-tinted white for style */
+    text-shadow: 0 0 12px rgba(186,0,255,.6); /* Soft glow to match the background aesthetic */
+}
+
+/*Why (section ul) and not (ul) is because the navigation bar got underlines when I didn't want them*/
+section ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+    line-height: 1.6;
+}
+section ul li {
+    border-bottom: 1px solid #ccc;
+    padding: 8px 0;
+}
+section ul li:last-child {
+    border-bottom: none;
+}
+
+
+/* ===================== HERO ===================== */
+/* Hero logo styling */
+.hero-logo {
+    width: 300px;          /* adjust size */
+    height: auto;          /* keep proportions */
+    margin-bottom: 1rem;   /* space below logo */
+    filter: drop-shadow(0 0 8px rgba(179,0,255,0.6)); /* glowing effect */
+}
+
+.hero {
+    display: flex;                        /* Flexbox to center content */
+    flex-direction: column;               /* Stack heading, subtext, button vertically */
+    justify-content: center;              /* Vertical center within viewport */
+    align-items: center;                   /* Horizontal center */
+    min-height: 70vh;                    /* Full viewport height hero */
+}
+
+.hero h1 {
+    /* clamp(min, preferred, max) scales font with viewport width (7vw) while respecting bounds */
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    text-shadow: 0 0 20px rgba(179,0,255,.5); /* Neon-ish title glow */
+}
+
+/* Call To Action button */
+.cta {
+    margin-top: 1.5rem;                   /* Space above button */
+    padding: .8rem 1.5rem;                /* Hit area/padding */
+    border: 2px solid #fff;               /* White outline to read on dark background */
+    border-radius: 30px;                  /* Pill shape */
+    color: #fff;                          /* Button text color */
+    text-decoration: none;                /* No underline */
+    transition: all .3s ease;             /* Smooth hover transitions for bg, border, shadow */
+}
+
+.cta:hover {
+    background: #b300ff;                  /* Fill with neon purple on hover */
+    border-color: #b300ff;                /* Match border to fill */
+    box-shadow: 0 0 20px rgba(179,0,255,.6); /* Add glow on hover */
+}
+
+/* ===================== FOOTER ===================== */
+footer {
+    display: flex;
+    justify-content: center; /* center everything horizontally */
+    align-items: center;     /* vertically align if it’s taller */
+    padding: 1rem;
+    text-align: center;      /* ensures text inside is centered */
+}
+
+
+/* ===================== CONTACT SECTION ===================== */
+
+/* Default link style inside Contact section */
+#contact a {
+    color: #ffffff;            /* always white by default */
+    text-decoration: none;     /* remove underline */
+    transition: color 0.3s;    /* smooth color change */
+}
+
+#contact a:hover {
+    color: #eadaff;            /* lavender ONLY when hovering */
+}
+
+#contact a:visited {
+    color: #ffffff;            /* force visited links to stay white */
+}
+
+/* ===== Contact Section Layout ===== */
+#contact {
+    display: flex;
+    flex-direction: column;  /* Stack items vertically */
+    align-items: center;     /* Center horizontally */
+    gap: 2rem;               /* Space between links and form */
+}
+
+/* Quick access links */
+.contact-links p {
+    margin: 0.5rem 0;
+    font-size: 1.1rem;
+}
+
+/* ===== Form Container ===== */
+#contact form {
+    width: 100%;
+    max-width: 600px;         /* Keeps form from being too wide */
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;              /* Space between fields */
+}
+
+/* ===== Form Groups (Label + Input) ===== */
+.form-group {
+    display: flex;
+    flex-direction: column;   /* Label above input */
+    align-items: flex-start;  /* Left-align inside form */
+}
+
+.form-group label {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #eadaff;           /* Lavender for headings */
+}
+
+/* ===== Inputs & Textarea ===== */
+#contact input,
+#contact textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 2px solid #b177f5;             /* Purple border */
+    border-radius: 10px;                   /* Rounded corners */
+    background: rgba(20, 1, 40, 0.6);      /* Dark glass effect */
+    color: #fff;
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s; /* Glow effect */
+}
+
+#contact input:focus,
+#contact textarea:focus {
+    border-color: #b300ff;                 /* Bright purple on focus */
+    box-shadow: 0 0 12px rgba(179,0,255,0.6);
+    outline: none;
+}
+
+/* ===== Submit Button ===== */
+.form-btn {
+    align-self: center;                     /* Center button */
+    padding: 0.8rem 2rem;
+    border: 2px solid #fff;                 /* White outline */
+    border-radius: 30px;                    /* Pill shape */
+    background: transparent;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;              /* Smooth hover */
+}
+
+.form-btn:hover {
+    background: #b300ff;                    /* Neon purple hover */
+    border-color: #b300ff;
+    box-shadow: 0 0 20px rgba(179,0,255,0.6);
+}
+
+/* ===== Status Message (after form submit) ===== */
+#form-status {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 1rem;
+    color: #eadaff;                         /* Soft lavender */
+}
+
+/* ===== Mobile adjustments ===== */
+@media (max-width: 600px) {
+    section {
+        padding: 6rem 1.25rem; /* less vertical space on small screens */
+    }
+    section h2 {
+        font-size: 2.25rem;    /* smaller headings on mobile */
+        margin-bottom: 2rem;
+    }
+    .hero h1 {
+        font-size: 2.5rem;     /* shrink hero title for small screens */
+    }
+}

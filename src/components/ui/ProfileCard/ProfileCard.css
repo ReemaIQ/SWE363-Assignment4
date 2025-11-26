@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+:root {
+    --rb-bg1: rgba(82, 39, 255, 0.08);
+    --rb-bg2: rgba(255, 159, 252, 0.08);
+    --rb-stroke: rgba(255, 255, 255, 0.35);
+    --rb-surface: rgba(255, 255, 255, 0.55);
+    --rb-text: #121212;
+    --rb-subtext: #4b5563;
+    --rb-skill-bg: rgba(0,0,0,0.06);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --rb-surface: rgba(255, 255, 255, 0.06);
+        --rb-text: #f5f5f5;
+        --rb-subtext: #c7c7c7;
+        --rb-skill-bg: rgba(255,255,255,0.08);
+        --rb-stroke: rgba(255, 255, 255, 0.15);
+    }
+}
+
+
+.rb-card {
+    position: relative;
+    display: block;
+    border-radius: 18px;
+    background: var(--rb-surface);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--rb-stroke);
+    box-shadow:
+            0 10px 25px rgba(0, 0, 0, 0.08),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transition: box-shadow 200ms ease;
+    font-family: "Inter", system-ui, sans-serif;
+    height: 460px;                 /* fixed for uniform grid */
+    overflow: hidden;
+}
+
+.rb-card:hover {
+    box-shadow:
+            0 18px 48px rgba(0, 0, 0, 0.14),
+            inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.rb-card__bg {
+    position: absolute;
+    inset: 0;
+    border-radius: 18px;
+    background:
+            radial-gradient(120% 120% at 0% 0%, var(--rb-bg1) 0%, transparent 60%),
+            radial-gradient(120% 120% at 100% 100%, var(--rb-bg2) 0%, transparent 60%);
+    pointer-events: none; /* never blocks hover */
+    z-index: 0;
+}
+
+/* Inner wrapper that actually moves */
+.rb-tilt {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;   /* keeps footer pinned */
+    transform-style: preserve-3d;
+    will-change: transform;
+    z-index: 1;
+}
+
+/* Content block at the top */
+.rb-card__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px 16px 8px;
+}
+
+/* Image: uncropped */
+.rb-avatar {
+    width: 150px;
+    height: auto;
+    margin-bottom: 12px;
+    object-fit: contain;   /* no cropping */
+    border: none;
+    box-shadow: none;
+    background: transparent;
+}
+
+/* Title / subtitle / about with clamping for uniformity */
+.rb-name {
+    margin: 0;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--rb-text);
+    line-height: 1.2;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;      /* avoid pushing layout */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.rb-subtitle {
+    margin: 4px 0 10px 0;
+    font-weight: 500;
+    font-size: 0.96rem;         /* smaller than title */
+    color: var(--rb-subtext);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.rb-about {
+    font-size: 0.9rem;          /* smaller than subtitle */
+    line-height: 1.5;
+    color: color-mix(in oklab, var(--rb-text) 80%, transparent 20%);
+    text-align: justify;
+    text-justify: inter-word;
+    max-width: 60ch;
+    display: -webkit-box;
+    -webkit-line-clamp: 6;      /* clamp to keep equal heights */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin: 0;
+}
+
+/* Footer pinned to bottom of card */
+.rb-footer {
+    position: absolute;        /* take it out of the flow */
+    bottom: 16px;              /* fixed distance from bottom edge */
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    z-index: 2;
+    pointer-events: none;      /* doesn't block hover */
+}
+
+/* The skills list centered within footer */
+.rb-skills {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    pointer-events: auto;      /* restore hover/click on chips */
+}
+
+/* Skill bubbles unchanged */
+.rb-skill {
+    font-size: 0.8rem;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: var(--rb-skill-bg);
+    color: var(--rb-text);
+    border: 1px solid var(--rb-stroke);
+}
+
+
+/* perspective belongs to the container grid */
+.rb-grid {
+    perspective: 1000px;
+}
+
+
+/* Accessibility: honor reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .rb-card { perspective: none; }
+    .rb-tilt { transform: none !important; }
+    .rb-card:hover { box-shadow: none; }
+}

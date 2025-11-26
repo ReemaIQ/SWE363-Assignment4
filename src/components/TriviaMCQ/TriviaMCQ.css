@@ -1,0 +1,202 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+:root{
+    --t-bg1: var(--rb-bg1, rgba(82,39,255,.08));
+    --t-bg2: var(--rb-bg2, rgba(255,159,252,.08));
+    --t-stroke: var(--rb-stroke, rgba(255,255,255,.35));
+    --t-surface: var(--rb-surface, rgba(255,255,255,.55));
+    --t-text: var(--rb-text, #121212);
+    --t-sub: var(--rb-subtext, #4b5563);
+}
+
+/* --- perspective for full-card movement --- */
+.twrap{
+    perspective: 1000px;
+    display: grid;
+    place-items: center;
+}
+/* Make header a row with space-between */
+.theader--row {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+/* Slightly larger vertical breathing room between blocks */
+.tcontent { gap: 18px; }
+
+
+/* --- Card smaller + glass look identical to projects --- */
+.tcard{
+    position: relative;
+    display: block;
+    width: min(750px, 35vw);           /* smaller than before */
+    border-radius: 18px;
+    background: var(--t-surface);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--t-stroke);
+    box-shadow:
+            0 10px 25px rgba(0,0,0,.08),
+            inset 0 1px 0 rgba(255,255,255,.2);
+    transition: box-shadow 200ms ease, transform 180ms ease;
+    transform-style: preserve-3d;
+    will-change: transform;
+    overflow: hidden;
+}
+.tcard:hover{
+    box-shadow:
+            0 18px 48px rgba(0,0,0,.14),
+            inset 0 1px 0 rgba(255,255,255,.25);
+}
+
+/* background glow */
+.tcard__bg{
+    position: absolute; inset: 0;
+    border-radius: 18px;
+    background:
+            radial-gradient(120% 120% at 0% 0%, var(--t-bg1) 0%, transparent 60%),
+            radial-gradient(120% 120% at 100% 100%, var(--t-bg2) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* content inside the card */
+.tcontent{
+    position: relative;
+    z-index: 1;
+    display: grid;
+    justify-items: center;
+    text-align: center;
+    gap: 14px;
+    padding: 18px 20px 16px; /* slightly smaller padding */
+    font-family: "Inter", system-ui, sans-serif;
+    color: var(--t-text);
+}
+
+/* header */
+.theader{ display:flex; flex-direction:column; align-items:center; gap:10px; }
+.theader h2 {
+    margin: 0;
+    font-weight: 700;
+    font-size: clamp(3rem, 3vw, 1.8rem); /* larger title */
+    letter-spacing: -0.5px;
+}
+
+
+/* unified button (matches contact form send) */
+.tbtn{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 28px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(16px);
+    color: var(--rb-text);
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow:
+            0 4px 16px rgba(0, 0, 0, 0.08),
+            inset 0 1px 1px rgba(255, 255, 255, 0.3);
+}
+.tbtn:hover{
+    transform: translateY(-2px);
+    box-shadow:
+            0 8px 28px rgba(0, 0, 0, 0.12),
+            inset 0 1px 1px rgba(255, 255, 255, 0.4);
+}
+.tbtn:active{ transform: translateY(0); }
+.tbtn[disabled]{ opacity: .6; cursor: not-allowed; }
+
+/* body */
+.tbody{
+    display:grid;
+    gap:12px;
+    justify-items:center;
+    text-align:center;
+    max-width:92ch;
+}
+.tstatement{
+    margin:0;
+    line-height:1.5;
+    color: color-mix(in oklab, var(--t-text) 85%, transparent 15%);
+}
+
+/* choices */
+.tchoices{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    align-items:center;
+    justify-content:center;
+}
+.tchoices.is-disabled{ opacity:.6; pointer-events:none; }
+
+.tchip{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 14px;
+    border-radius:999px;
+    border:1px solid var(--t-stroke);
+    background: color-mix(in oklab, var(--t-surface) 92%, #fff 8%);
+    user-select:none;
+    cursor:pointer;
+    transition: box-shadow .2s ease, transform .12s ease, background .2s ease, border-color .2s ease;
+}
+.tchip input{ display:none; }
+.tchip:active{ transform: translateY(0); filter: brightness(1.05); }
+
+.tchip--true.is-selected{
+    background: rgba(46,204,113,.25);
+    border-color: rgba(46,204,113,.55);
+    box-shadow: 0 8px 20px rgba(46,204,113,.22);
+}
+.tchip--false.is-selected{
+    background: rgba(231,76,60,.25);
+    border-color: rgba(231,76,60,.55);
+    box-shadow: 0 8px 20px rgba(231,76,60,.22);
+}
+
+/* result */
+.texpl{
+    margin-top:10px;
+    padding:12px 14px;
+    border-radius:12px;
+    border:1px solid var(--t-stroke);
+    background: color-mix(in oklab, var(--t-surface) 92%, #fff 8%);
+    animation: tFade .25s ease;
+    text-align:center;
+    font-size: 0.95rem;
+}
+.texpl.ok{     box-shadow: inset 0 0 0 2px rgba(60,255,140,.22); }
+.texpl.almost{ box-shadow: inset 0 0 0 2px rgba(255,190,60,.22); }
+.tsrc{ text-decoration: underline; opacity:.9; display:inline-block; font-size:0.9rem; }
+
+/* loader */
+.tstatus{ display:inline-flex; gap:10px; align-items:center; justify-content:center; }
+.tloader{ display:inline-flex; gap:4px; --dot:8px; }
+.tloader span{
+    width:var(--dot); height:var(--dot);
+    border-radius:50%;
+    background: color-mix(in oklab, var(--t-text) 70%, transparent 30%);
+    animation: tPulse 1s infinite ease-in-out;
+}
+.tloader span:nth-child(2){ animation-delay:.15s; }
+.tloader span:nth-child(3){ animation-delay:.30s; }
+
+/* motion preferences */
+@media (prefers-reduced-motion: reduce){
+    .twrap{ perspective:none; }
+    .tcard{ transform:none !important; transition:none; }
+}
+
+/* animations */
+@keyframes tPulse{ 0%,80%,100%{ transform:scale(.8); opacity:.6; } 40%{ transform:scale(1); opacity:1; } }
+@keyframes tFade{ from{ opacity:0; transform:translateY(2px);} to{ opacity:1; transform:none;} }

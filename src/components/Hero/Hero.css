@@ -1,0 +1,73 @@
+/* Base tokens used by the trivia card too */
+:root{
+    --rb-bg1: rgba(82, 39, 255, 0.08);
+    --rb-bg2: rgba(255, 159, 252, 0.08);
+    --rb-stroke: rgba(255, 255, 255, 0.35);
+    --rb-surface: rgba(255, 255, 255, 0.55);
+    --rb-text: #121212;
+    --rb-subtext: #4b5563;
+}
+
+.hero {
+    display: grid;
+    place-items: center;
+    padding: clamp(40px, 6vw, 80px) 16px 0;
+    text-align: center;
+}
+
+.hero__content {
+    max-width: 900px;
+    display: grid;
+    justify-items: center;
+    gap: 8px;
+}
+
+.hero-logo {
+    width: clamp(72px, 12vw, 120px);
+    height: auto;
+    object-fit: contain;
+}
+
+.hero__clock {
+    margin: 6px 0 0;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.5px;
+    color: var(--rb-subtext);
+}
+
+.hero__greeting {
+    margin: 0;
+    color: color-mix(in oklab, var(--rb-text) 85%, transparent 15%);
+}
+
+.hero__title {
+    margin: 4px 0 0;
+    font-size: clamp(28px, 6vw, 48px);
+    line-height: 1.1;
+}
+
+.hero__tagline {
+    margin: 8px 0 28px;           /* ← leaves more space under the tagline */
+    max-width: 60ch;
+    color: color-mix(in oklab, var(--rb-text) 80%, transparent 20%);
+}
+
+.cta {
+    display: inline-block;
+    padding: 12px 20px;
+    border-radius: 14px;
+    backdrop-filter: blur(8px);
+    background: linear-gradient(180deg, var(--rb-surface), rgba(255,255,255,0.72));
+    border: 1px solid var(--rb-stroke);
+    text-decoration: none;
+    color: var(--rb-text);
+    transition: transform .15s ease, box-shadow .2s ease;
+}
+.cta:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,.12); }
+.cta:active { transform: translateY(0); }
+
+.hero__trivia {
+    display: grid;
+    place-items: center;
+    padding: 28px 16px 64px;      /* nice breathing room under hero */
+}

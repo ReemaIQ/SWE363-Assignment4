@@ -1,0 +1,179 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+.rb-filters {
+    display: grid;
+    gap: 12px;
+    margin-bottom: 14px;
+    font-family: "Inter", system-ui, sans-serif;
+}
+
+.rb-toolbar {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    align-items: end;
+}
+
+/* Glassy input shell (matches rb-card) */
+.rb-input-shell {
+    position: relative;
+    border-radius: 18px;
+    background: var(--rb-surface);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--rb-stroke);
+    box-shadow:
+            0 10px 25px rgba(0,0,0,0.08),
+            inset 0 1px 0 rgba(255,255,255,0.20);
+    transition: box-shadow 200ms ease, transform 120ms ease;
+}
+
+.rb-input-shell:focus-within {
+    box-shadow:
+            0 18px 48px rgba(0,0,0,0.14),
+            inset 0 1px 0 rgba(255,255,255,0.25);
+    transform: translateY(-1px);
+}
+
+/* Actual input */
+.rb-input {
+    width: 100%;
+    padding: 12px 14px 12px 14px;
+    background: transparent;
+    border: 0;
+    color: var(--rb-text);
+    font-size: 0.98rem;
+    outline: none;
+    border-radius: 18px; /* keep caret area nicely rounded */
+}
+
+.rb-input::placeholder {
+    color: color-mix(in oklab, var(--rb-subtext) 70%, transparent 30%);
+}
+
+/* Skills row */
+.rb-skillbar {
+    display: grid;
+    gap: 8px;
+}
+
+.rb-skillbar-label {
+    font-size: 12px;
+    color: var(--rb-subtext);
+}
+
+/* Skill chip that matches card bubbles but with micro-interactions */
+.rb-chip {
+    font-size: 0.85rem;
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: var(--rb-skill-bg);
+    color: var(--rb-text);
+    border: 1px solid var(--rb-stroke);
+    cursor: pointer;
+    transition: transform 120ms ease, box-shadow 200ms ease, background 160ms ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.rb-chip:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(0,0,0,0.08); }
+
+.rb-chip[aria-pressed="true"] {
+    background: color-mix(in oklab, var(--rb-text) 10%, var(--rb-skill-bg) 90%);
+    color: var(--rb-text);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.16);
+}
+
+
+.mrp-wrap {
+    min-width: 260px;
+}
+
+.mrp-button,
+.mrp-pop {
+    font-family: "Inter", system-ui, sans-serif;
+}
+
+/* Override picker button to match shell */
+.mrp-button {
+    text-align: left;
+    padding: 12px 14px;
+    width: 100%;
+    border-radius: 18px;
+    background: var(--rb-surface);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--rb-stroke);
+    cursor: pointer;
+    box-shadow:
+            0 10px 25px rgba(0,0,0,0.08),
+            inset 0 1px 0 rgba(255,255,255,0.20);
+    transition: box-shadow 200ms ease, transform 120ms ease, background 160ms ease;
+    color: var(--rb-text);
+}
+.mrp-button:hover {
+    transform: translateY(-1px);
+    box-shadow:
+            0 18px 48px rgba(0,0,0,0.14),
+            inset 0 1px 0 rgba(255,255,255,0.25);
+}
+
+/* Popover adopts card surface look + a faint radial glow like rb-card__bg */
+.mrp-pop {
+    right: 0;
+    width: 340px;
+    border-radius: 18px;
+    background:
+            radial-gradient(120% 120% at 0% 0%, var(--rb-bg1) 0%, transparent 60%),
+            radial-gradient(120% 120% at 100% 100%, var(--rb-bg2) 0%, transparent 60%),
+            var(--rb-surface);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--rb-stroke);
+    box-shadow:
+            0 18px 48px rgba(0,0,0,0.14),
+            inset 0 1px 0 rgba(255,255,255,0.25);
+}
+
+/* Year header + nav */
+.mrp-year-select,
+.mrp-nav {
+    border-radius: 12px;
+    border: 1px solid var(--rb-stroke);
+    background: color-mix(in oklab, var(--rb-surface) 90%, #fff 10%);
+    color: var(--rb-text);
+}
+.mrp-year-select {
+    height: 38px;
+    padding: 0 10px;
+}
+.mrp-nav {
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    transition: transform 120ms ease, background 160ms ease, opacity 120ms ease;
+}
+.mrp-nav:hover { transform: translateY(-1px); }
+.mrp-nav:disabled { opacity: .45; cursor: not-allowed; transform: none; }
+
+/* Month cells (use same border + subtle active fills) */
+.mrp-cell {
+    padding: 10px 6px;
+    border-radius: 12px;
+    border: 1px solid var(--rb-stroke);
+    background: color-mix(in oklab, var(--rb-surface) 85%, #fff 15%);
+    color: var(--rb-text);
+    transition: transform 120ms ease, box-shadow 200ms ease, background 160ms ease;
+}
+.mrp-cell:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(0,0,0,0.08); }
+
+.mrp-cell.in-range {
+    background: color-mix(in oklab, var(--rb-bg2) 25%, var(--rb-surface) 75%);
+}
+.mrp-cell.start,
+.mrp-cell.end {
+    background: color-mix(in oklab, var(--rb-bg1) 40%, var(--rb-surface) 60%);
+    box-shadow: inset 0 0 0 2px rgba(255,255,255,.45);
+}
+
+/* Fade-in utility for empty state (if you use it) */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
