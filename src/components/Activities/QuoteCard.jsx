@@ -82,7 +82,7 @@ export default function QuoteCard() {
                 <div className="tcontent">
                     {/* Header row: title + button */}
                     <header className="theader theader--row">
-                        <h2 id="quote-card-title">Quote of the Day</h2>
+                        <h2 id="quote-card-title">Quote of the Day !</h2>
                         <button
                             type="button"
                             className="tbtn tbtn--glass"

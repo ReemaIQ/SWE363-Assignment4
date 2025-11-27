@@ -97,8 +97,8 @@ export default function TriviaMCQ() {
                 <div className="tcontent">
                     {/* 1) Title + New Question button in one row */}
                     <header className="theader theader--row">
-                        <h2 id="tcard-h2">Did You Know</h2>
-                        <h2 id="tcard-h2">?</h2>
+                        <h2 id="tcard-h2">Did You Know ?</h2>
+                        <h2 id="tcard-h2">   </h2>
                         <button
                             type="button"
                             className="tbtn tbtn--glass"
