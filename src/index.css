@@ -310,3 +310,19 @@ footer {
         font-size: 2.5rem;     /* shrink hero title for small screens */
     }
 }
+
+@media (max-width: 400px) {
+    section {
+        padding: 4.5rem 1rem;   /* less vertical padding */
+        font-size: 1.1rem;      /* slightly smaller body text */
+    }
+
+    section h2 {
+        font-size: 2rem;
+        margin-bottom: 1.75rem;
+    }
+
+    .navbar ul {
+        gap: 1.25rem;          /* tighter nav spacing */
+    }
+}

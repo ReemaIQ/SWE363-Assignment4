@@ -71,3 +71,12 @@
     place-items: center;
     padding: 28px 16px 64px;      /* nice breathing room under hero */
 }
+
+.hero__trivia-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    align-items: stretch;
+    justify-content: center;
+}
+

@@ -1,6 +1,7 @@
 import React from "react";
 import "./Hero.css";
 import TriviaMCQ from "../TriviaMCQ/TriviaMCQ.jsx";
+import QuoteCard from "../TriviaMCQ/QuoteCard.jsx";
 
 import logo from "../../assets/images/R-logo.png";
 
@@ -38,9 +39,12 @@ export default function Hero() {
                 </div>
             </section>
 
-            {/* Trivia sits right under the hero */}
+            {/* Trivia + Quote cards under the hero */}
             <div className="hero__trivia">
-                <TriviaMCQ />
+                <div className="hero__trivia-row">
+                    <TriviaMCQ />
+                    <QuoteCard />
+                </div>
             </div>
         </>
     );
