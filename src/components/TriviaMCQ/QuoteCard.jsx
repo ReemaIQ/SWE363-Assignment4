@@ -3,12 +3,12 @@ import "./TriviaMCQ.css";
 import { useQuote } from "../../hooks/useQuote.js";
 
 export default function QuoteCard() {
-    const { loading, error, text, author, refetch } = useQuote();
+    const {loading, error, text, author, refetch} = useQuote();
 
     // Card-level tilt
     const cardRef = React.useRef(null);
-    const target = React.useRef({ rx: 0, ry: 0, tz: 0, tx: 0, ty: 0 });
-    const current = React.useRef({ rx: 0, ry: 0, tz: 0, tx: 0, ty: 0 });
+    const target = React.useRef({rx: 0, ry: 0, tz: 0, tx: 0, ty: 0});
+    const current = React.useRef({rx: 0, ry: 0, tz: 0, tx: 0, ty: 0});
     const rafId = React.useRef(0);
 
     const animate = React.useCallback(() => {
@@ -42,17 +42,17 @@ export default function QuoteCard() {
         const SHIFT = 8;
         target.current = {
             rx: -ny * ROT,
-            ry:  nx * ROT,
-            tz:  12,
-            tx:  nx * SHIFT,
-            ty:  ny * SHIFT,
+            ry: nx * ROT,
+            tz: 12,
+            tx: nx * SHIFT,
+            ty: ny * SHIFT,
         };
 
         if (!rafId.current) rafId.current = requestAnimationFrame(animate);
     }
 
     function onLeave() {
-        target.current = { rx: 0, ry: 0, tz: 0, tx: 0, ty: 0 };
+        target.current = {rx: 0, ry: 0, tz: 0, tx: 0, ty: 0};
         setTimeout(() => {
             cancelAnimationFrame(rafId.current);
             rafId.current = 0;
@@ -77,7 +77,7 @@ export default function QuoteCard() {
                 onMouseMove={onMove}
                 onMouseLeave={onLeave}
             >
-                <div className="tcard__bg" aria-hidden="true" />
+                <div className="tcard__bg" aria-hidden="true"/>
 
                 <div className="tcontent">
                     {/* Header row: title + button */}
@@ -99,7 +99,7 @@ export default function QuoteCard() {
                             <div className="tloader">
                                 <span></span><span></span><span></span>
                             </div>
-                            <span style={{ marginLeft: 8 }}>Fetching inspiration…</span>
+                            <span style={{marginLeft: 8}}>Fetching inspiration…</span>
                         </div>
                     )}
 
@@ -119,12 +119,11 @@ export default function QuoteCard() {
                     {!loading && !text && error && (
                         <div className="texpl almost" aria-live="polite">
                             <strong>Couldn&apos;t load a fresh quote</strong>
-                            <p style={{ margin: "6px 0 0" }}>Please try again in a moment.</p>
+                            <p style={{margin: "6px 0 0"}}>Please try again in a moment.</p>
                         </div>
                     )}
                 </div>
             </section>
         </div>
-    );
-    ;
+    )
 }

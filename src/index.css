@@ -77,7 +77,6 @@ body::after {
     display: flex;                        /* Horizontal layout for nav items */
     justify-content: center;              /* Center the list */
     gap: 2rem;                            /* Even spacing between links */
-    list-style: none;                     /* Remove bullets */
     /* Remove default spacing the browser adds to lists. */
     margin: 0;                            /* Reset default list margin */
     padding: 0;                           /* Reset default list padding */
