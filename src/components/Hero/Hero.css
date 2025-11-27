@@ -23,7 +23,7 @@
 }
 
 .hero-logo {
-    width: clamp(72px, 12vw, 120px);
+    width: clamp(96px, 14vw, 140px);
     height: auto;
     object-fit: contain;
 }
@@ -33,22 +33,25 @@
     font-variant-numeric: tabular-nums;
     letter-spacing: 0.5px;
     color: var(--rb-subtext);
+    font-size: clamp(0.9rem, 1vw, 1rem);
 }
 
 .hero__greeting {
     margin: 0;
     color: color-mix(in oklab, var(--rb-text) 85%, transparent 15%);
+    font-size: clamp(0.95rem, 1.2vw, 1.05rem);
 }
 
 .hero__title {
     margin: 4px 0 0;
-    font-size: clamp(28px, 6vw, 48px);
+    font-size: clamp(2.2rem, 5.2vw, 3.4rem);
     line-height: 1.1;
 }
 
 .hero__tagline {
-    margin: 8px 0 28px;           /* ← leaves more space under the tagline */
+    margin: 8px 0 28px;
     max-width: 60ch;
+    font-size: clamp(0.95rem, 1.25vw, 1.1rem);
     color: color-mix(in oklab, var(--rb-text) 80%, transparent 20%);
 }
 
@@ -63,13 +66,16 @@
     color: var(--rb-text);
     transition: transform .15s ease, box-shadow .2s ease;
 }
-.cta:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,.12); }
+.cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(0,0,0,.12);
+}
 .cta:active { transform: translateY(0); }
 
 .hero__trivia {
     display: grid;
     place-items: center;
-    padding: 28px 16px 64px;      /* nice breathing room under hero */
+    padding: 28px 16px 64px;
 }
 
 .hero__trivia-row {
@@ -78,5 +84,34 @@
     gap: 24px;
     align-items: stretch;
     justify-content: center;
+    width: 100%;
+    max-width: 1120px;
 }
 
+/* ===== Medium screens ===== */
+@media (max-width: 900px) {
+    .hero {
+        padding-top: 36px;
+    }
+
+    .hero__content {
+        max-width: 680px;
+    }
+
+    /* Stack the cards so they are not thin */
+    .hero__trivia-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+/* ===== Small screens ===== */
+@media (max-width: 600px) {
+    .hero {
+        padding-top: 28px;
+    }
+
+    .hero__tagline {
+        margin-bottom: 20px;
+    }
+}

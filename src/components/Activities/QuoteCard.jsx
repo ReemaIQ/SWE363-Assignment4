@@ -1,5 +1,5 @@
 import React from "react";
-import "./TriviaMCQ.css";
+import "./ActivityCard.css";
 import { useQuote } from "../../hooks/useQuote.js";
 
 export default function QuoteCard() {

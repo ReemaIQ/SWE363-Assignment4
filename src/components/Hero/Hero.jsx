@@ -1,7 +1,7 @@
 import React from "react";
 import "./Hero.css";
-import TriviaMCQ from "../TriviaMCQ/TriviaMCQ.jsx";
-import QuoteCard from "../TriviaMCQ/QuoteCard.jsx";
+import TriviaMCQ from "../Activities/TriviaMCQ.jsx";
+import QuoteCard from "../Activities/QuoteCard.jsx";
 
 import logo from "../../assets/images/R-logo.png";
 

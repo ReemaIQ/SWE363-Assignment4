@@ -1,5 +1,5 @@
 import React from "react";
-import "./TriviaMCQ.css";
+import "./ActivityCard.css";
 
 export default function TriviaMCQ() {
     const [status, setStatus] = React.useState("loading");

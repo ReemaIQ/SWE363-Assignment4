@@ -11,13 +11,15 @@
 
 /* ===== CONTACT SECTION ===== */
 .cf {
-    padding: 60px 0;
+    width: 100%;
+    padding: clamp(40px, 6vw, 60px) 0;
     font-family: "Inter", system-ui, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     color: var(--rb-text);
+    box-sizing: border-box;
 }
 
 .cf__container {
@@ -25,13 +27,15 @@
     max-width: var(--cf-width);
     margin: 0 auto;
     text-align: center;
+    padding: 0 16px;
+    box-sizing: border-box;
 }
 
 /* ===== TITLE ===== */
 .cf__title {
     margin-bottom: 28px;
     text-align: center;
-    font-size: 2.4rem;
+    font-size: clamp(1.9rem, 3vw, 2.4rem);
     font-weight: 700;
     color: var(--rb-text);
 }
@@ -56,13 +60,22 @@
     border: 1px solid var(--rb-stroke);
     text-decoration: none;
     font-weight: 500;
-    font-size: 0.95rem;
+    font-size: clamp(0.9rem, 1.1vw, 0.95rem);
     transition: transform 0.15s ease, box-shadow 0.25s ease, background 0.2s ease;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 .cf-chip:hover {
     transform: translateY(-1px);
     box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* ===== TILT WRAPPER ===== */
+.cf-tilt-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    perspective: 1000px;     /* same as other tilt wrappers */
+    box-sizing: border-box;
 }
 
 /* ===== OUTER GLASS CARD ===== */
@@ -74,12 +87,23 @@
     box-shadow:
             0 18px 48px rgba(0, 0, 0, 0.12),
             inset 0 1px 0 rgba(255, 255, 255, 0.25);
-    padding: 50px;
+    padding: clamp(24px, 5vw, 50px);
     width: 100%;
     max-width: 900px;
     margin: 0 auto;
     display: flex;
     justify-content: center;
+    box-sizing: border-box;
+
+    transform-style: preserve-3d;
+    will-change: transform;
+    transition: box-shadow 0.25s ease;  /* transform is controlled by JS tilt */
+}
+
+.cf-card:hover {
+    box-shadow:
+            0 22px 60px rgba(0, 0, 0, 0.18),
+            inset 0 1px 0 rgba(255, 255, 255, 0.28);
 }
 
 /* ===== INNER CONTENT ===== */
@@ -114,7 +138,7 @@
 }
 
 .cf-label {
-    font-size: 0.95rem;
+    font-size: clamp(0.9rem, 1vw, 0.95rem);
     font-weight: 500;
     color: var(--rb-subtext);
     padding-left: 4px;
@@ -128,7 +152,7 @@
     border: 1px solid var(--rb-stroke);
     background: color-mix(in oklab, var(--rb-surface) 90%, transparent 10%);
     color: var(--rb-text);
-    font-size: 1rem;
+    font-size: clamp(0.95rem, 1.1vw, 1rem);
     padding: 14px 16px;
     outline: none;
     transition: box-shadow 0.25s ease, transform 0.15s ease, background 0.15s ease;
@@ -182,7 +206,7 @@
     backdrop-filter: blur(16px);
     color: var(--rb-text);
     font-weight: 600;
-    font-size: 1rem;
+    font-size: clamp(0.95rem, 1.1vw, 1rem);
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow:
@@ -217,12 +241,12 @@
     font-weight: 500;
 }
 .cf-status--ok {
-    color: #4ade80;              /* soft green */
+    color: #4ade80;
     animation: cfStatusIn 0.25s ease-out;
 }
 
 .cf-status--error {
-    color: #fb7185;              /* soft red */
+    color: #fb7185;
     animation: cfStatusIn 0.25s ease-out;
 }
 
@@ -237,7 +261,6 @@
         transform: translateY(0);
     }
 }
-
 
 /* ===== LOADER ===== */
 .cf-loader {
@@ -260,4 +283,36 @@
 @keyframes cfPulse {
     0%, 80%, 100% { transform: scale(0.6); opacity: 0.6; }
     40% { transform: scale(1); opacity: 1; }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+    .cf__container {
+        padding: 0 12px;
+    }
+
+    .cf-card {
+        max-width: 100%;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 600px) {
+    .cf {
+        padding-top: 32px;
+        padding-bottom: 40px;
+    }
+
+    .cf__title {
+        margin-bottom: 22px;
+    }
+
+    .cf-inner {
+        max-width: 100%;
+    }
+
+    .cf-chip {
+        font-size: 0.9rem;
+        padding: 8px 14px;
+    }
 }

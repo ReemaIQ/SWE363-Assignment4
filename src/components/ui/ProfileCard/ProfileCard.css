@@ -170,3 +170,46 @@
     .rb-tilt { transform: none !important; }
     .rb-card:hover { box-shadow: none; }
 }
+
+@media (max-width: 768px) {
+    .rb-card {
+        height: 400px;
+    }
+
+    .rb-avatar {
+        width: 120px;
+    }
+
+    .rb-name {
+        font-size: 1rem;
+    }
+
+    .rb-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .rb-about {
+        font-size: 0.85rem;
+    }
+
+    .rb-skill {
+        font-size: 0.75rem;
+        padding: 5px 9px;
+    }
+}
+
+@media (max-width: 480px) {
+    .rb-card {
+        height: auto;
+        min-height: 360px;
+    }
+
+    .rb-card__content {
+        padding-bottom: 16px;
+    }
+
+    .rb-footer {
+        position: static;
+        margin-top: 16px;
+    }
+}
