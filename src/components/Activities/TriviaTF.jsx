@@ -1,7 +1,7 @@
 import React from "react";
 import "./ActivityCard.css";
 
-export default function TriviaMCQ() {
+export default function TriviaTF() {
     const [status, setStatus] = React.useState("loading");
     const [fact, setFact] = React.useState(null);
     const [choice, setChoice] = React.useState(null);

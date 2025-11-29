@@ -1,44 +1,45 @@
-# Assignment 2 — Interactive Features  
+# Assignment 3 - Advanced Functionality
 ### **Reema Ibrahim Al-Qahtani | SWE 363 | Term 251**
 
 ---
 
-## Project Title: **Reema’s Interactive Portfolio**
+## Project Title: **Reema’s Advanced Interactive Portfolio (A3 update)**
 
-This project builds on the Assignment 1 portfolio and focuses on adding **interactivity**, **data handling**, and **AI-assisted improvements** to create a dynamic, user-centered web experience.  
-Developed with **React + Vite**, the application demonstrates real-time content, API integration, and smooth visual motion.
+This assignment builds on the previous portfolio (A1 & A2) and extends it with  
+**API integrations, multi-step logic, state persistence, performance optimization, and documentation**.  
+The entire application is implemented using **React + Vite**, following a clean, modular structure with reusable components, custom hooks, and responsive design.
 
 ---
 
-## Features Overview
+## Feature Overview
 
 | Category | Feature | Description |
-|-----------|----------|-------------|
-| **Dynamic Content** | Live Clock + Greeting | The Hero section greets the visitor dynamically based on the time of day. |
-| | Trivia Card | Fetches random facts from a public API (`https://uselessfacts.jsph.pl/`) with a True/False quiz and animated feedback. |
-| | Search & Filter | Allows users to search or filter projects by date or skill tags. |
-| **Data Handling** | API Integration | TriviaMCQ uses `fetch()` to retrieve live data, with proper loading and error states. |
-| | Form Handling | The Contact Form validates user input, displays inline feedback, and resets on successful submission. |
-| **Animations & Transitions** | Tilt + Blur Effects | Each card features 3-D tilt animation with smooth damping and glass-morphism design. |
-| | Button & Hover States | All interactive elements share unified glass buttons with subtle motion and shadows. |
-| **Error Handling & Feedback** | Retry + Loading | Clear “Loading…” spinner and retry option if the API call fails. |
-| | Validation | Friendly inline prompts for missing or invalid form fields. |
-| **AI Enhancement** | **ChatGPT** | Clarified component logic, guided layout structure, and explained debugging steps | Improved understanding and integration confidence |
-| **GitHub Copilot** | Offered inline JSX/CSS completions | Simplified repetitive coding tasks |
+|---------|---------|-------------|
+| **API Integration** | **Trivia API** | Fetches live trivia questions with True/False answers + correctness logic + error fallback. |
+| | **Quote API** | Shows a “Quote of the Day” with refresh + graceful error handling. |
+| | **GitHub Repos API** | Loads real GitHub repositories for `ReemaIQ`, displays them in cards, supports search, language filtering & month filtering. |
+| **Complex Logic** | **Project & Repo Filtering** | Text search, multi-select skill chips, date/month filtering, sorting by timestamp. |
+| | **Favorites System** | Star/unstar items for Projects and Repos with persistent storage via localStorage. |
+| | **Contact Form** | Full validation flow → inline errors → async “sending…” → success/error message. |
+| | **Empty State Messages** | Auto-closing toast shown when “Starred Projects/Repos” are empty. |
+| **State Management** | **React State + Effects** | Hero clock, filters, trivia choices, repo data, favorites, submission status. |
+| | **Persistent Storage** | Favorites stored under `rb-fav-projects` and `rb-fav-repos` in localStorage. In addition filtering choices (in projects or GitHub repositories are also saved to local storage|
+| **Performance** | **Image Compression** | All hero/project stickers compressed (e.g., 850 KB → 200–300 KB). |
+| | **Lazy Loading** | Non-critical images use `loading="lazy"` for faster load. |
+| | **CSS/JS Cleanup** | Removed unused files, console logs, and heavy assets. |
+| | **Lighthouse Optimization** | Performance improved from **59 → 92–97**, Accessibility 100, Best Practices 100. |
+| **Responsiveness** | **Mobile Fixes** | Cards resize properly, Trivia/Quote no longer squish, Navbar & sections no overflow. |
+| **AI Innovation** | **ChatGPT** | Used for architecture discussions, debugging, styling ideas, and documentation phrasing. |
 
 ---
 
 ## Structure
 
 ```
-SWE363-Assignment2/
+SWE363-Assignment3/
 ├── .idea/
 │   ├── .gitignore
-│   ├── material_theme_project_new.xml
-│   ├── modules.xml
-│   ├── SWE363-Assignment2.iml
-│   ├── vcs.xml
-│   └── workspace.xml
+│   ├── other files etc.
 │
 ├── docs/
 │   ├── ai-usage-report.md
@@ -47,7 +48,7 @@ SWE363-Assignment2/
 ├── node_modules/
 │
 ├── public/
-│   └── vite.svg
+│   └── robots.txt
 │
 ├── src/
 │   ├── assets/
@@ -63,10 +64,14 @@ SWE363-Assignment2/
 │   │       ├── ScreenShot 2.png
 │   │       ├── ScreenShot 3.png
 │   │       ├── soccer stkr.png
-│   │       ├── ticket stkr.png
-│   │       └── react.svg
+│   │       └── ticket stkr.png
 │   │
 │   ├── components/
+│   │   ├── Activities/
+│   │   │   ├── ActivityCard.css
+│   │   │   ├── QuoteCard.jsx
+│   │   │   └── TriviaTF.jsx
+│   │   │
 │   │   ├── ContactForm/
 │   │   │   ├── ContactForm.css
 │   │   │   └── ContactForm.jsx
@@ -79,6 +84,7 @@ SWE363-Assignment2/
 │   │   │   └── Hero.jsx
 │   │   │
 │   │   ├── Navbar/
+│   │   │   ├── Nav.css
 │   │   │   └── Navbar.jsx
 │   │   │
 │   │   ├── Projects/
@@ -89,22 +95,21 @@ SWE363-Assignment2/
 │   │   │   ├── Projects.jsx
 │   │   │   └── ProjectsGrid.css
 │   │   │
-│   │   ├── TriviaMCQ/
-│   │   │   ├── TriviaMCQ.css
-│   │   │   └── TriviaMCQ.jsx
+│   │   ├── Repos/
+│   │   │   ├── RepoFilters.jsx
+│   │   │   └── Repositories.jsx
+│   │   │
 │   │   │
 │   │   └── ui/
 │   │       └── ProfileCard/
 │   │           ├── ProfileCard.css
 │   │           └── ProfileCard.jsx
 │   │
-│   ├── css/
-│   │   └── styles.css
-│   │
 │   ├── data/
 │   │   └── projects.json
 │   │
 │   ├── hooks/
+│   │   ├── useGithubRepos.js
 │   │   ├── useLocalStorage.js
 │   │   ├── useProjectFilters.js
 │   │   └── useQuote.js
@@ -112,7 +117,6 @@ SWE363-Assignment2/
 │   ├── utils/
 │   │   └── date.js
 │   │
-│   ├── App.css
 │   ├── App.jsx
 │   ├── index.css
 │   └── main.jsx
@@ -127,15 +131,47 @@ SWE363-Assignment2/
 
 ```
 
+---
 
-## Key Components
+## Key Components & Logic
 
-| Component | Purpose |
-|------------|----------|
-| **Hero.jsx** | Displays greeting, live clock, and CTA link. |
-| **TriviaMCQ.jsx** | Interactive True/False trivia card using API data. |
-| **ProfileCard.jsx** | Displays project info with tilt and hover effects. |
-| **ContactForm.jsx** | Handles input validation and form submission feedback. |
+### **1. TriviaTF - Live API Quiz**
+- Fetches a random fact from the **Useless Facts API**.
+- Tracks user choice + correctness.
+- Handles error, loading, retry.
+- Stores question state until the user answers.
+
+### **2. Quote of the Day**
+- Fetches a daily quote with a clean UI.
+- Allows manual refresh.
+- Shows fallback message on failure.
+
+### **3. GitHub Repositories Section**
+- Fetches real repos using GitHub REST API.
+- Renders:
+  - name  
+  - description  
+  - main language  
+  - last updated  
+- Supports:
+  - Search
+  - Language filter
+  - Month filter
+  - Sorting (newest → oldest)
+- Gracefully handles rate-limit and network errors.
+
+### **4. Contact Form - Full Validation + Async Flow**
+- Inline errors for name/email/message.
+- Regex-based email validation.
+- Simulated async API call (`setTimeout`).
+- Shows “sending…”, then success/fail message.
+
+### **5. Favorites (Projects & Repos)**
+- ☆ / ★ toggle on each card.
+- Starred sections appear on top.
+- Stored in localStorage (persists across refresh).
+- Auto-toast when no favorites exist.
+
 
 ---
 
@@ -144,16 +180,42 @@ SWE363-Assignment2/
 - **HTML5 / CSS3 / JavaScript (ES6+)**
 - **Glass-morphism** and responsive design
 - **Fetch API** and **local storage**
-- **AI assistance:** ChatGPT, GitHub Copilot
+- **AI assistance:** ChatGPT
+
 
 ---
+
+## Performance Improvements
+
+### Image Optimization
+- Compressed heavy PNG stickers from ~850 KB → ~200–330 KB.
+- Hero R-logo compressed from 146 KB → 42 KB.
+
+### Lazy Loading
+```html
+<img src={avatar} alt="avatar" loading="lazy" />
+```
+
+## Lighthouse Results (Final Build)
+
+| **Metric**       | **Before** | **After** |
+|------------------|-----------:|----------:|
+| Performance      | ~59        | **92-97** |
+| Accessibility    | 100        | **100**   |
+| Best Practices   | 100        | **100**   |
+| SEO              | 83         | **92**    |
+| FCP              | 6.5 s      | **0.8 s** |
+| LCP              | 12.2 s     | **1.1 s** |
+
+---
+
 
 ##  How to Run Locally
 
 
 ### 1. Clone repository
-`git clone https://github.com/<your-username>/assignment-2.git`
-`cd assignment-2`
+`git clone https://github.com/ReemaIQ/SWE363-Assignment3`
+`cd SWE363-Assignment3`
 
 ### 2. Install dependencies
 `npm install`
@@ -169,9 +231,10 @@ Open your browser to **[http://localhost:5173/](http://localhost:5173/)**.
 
 | Tool | Purpose | Outcome |
 |------|----------|----------|
-| **ChatGPT** | Provided guidance on setup, visual effects, and small debugging issues | Helped clarify concepts and refine design consistency |
-| **GitHub Copilot** | Suggested minor code completions while writing JSX and CSS | Improved typing flow and reduced repetitive work |
-| **AI Assistance in Documentation** | Helped organize and format this README and technical docs | Ensured cleaner Markdown structure and readability |
+| **ChatGPT** | Helped debug mobile responsiveness, overlapping cards, unstable Trivia card height, and Lighthouse/SEO issues | Improved layout stability, performance scores, and polished UI behavior |
+| **ChatGPT** | Clarified API usage (GitHub REST, Trivia API), naming (toast messages), and async patterns | Enabled cleaner API integration and consistent UI feedback components |
+| **AI Assistance in Documentation** | Converted sections into Markdown, structured tables, refined README phrasing | Produced cleaner, more professional project documentation |
+
 
 See **`docs/ai-usage-report.md`** for detailed examples of prompts, explanations, and takeaways.
 
@@ -180,10 +243,11 @@ See **`docs/ai-usage-report.md`** for detailed examples of prompts, explanations
 
 ## Learning Outcomes
 
-- Deepened understanding of **React hooks**, `useEffect`, and state flow  
-- Practiced **asynchronous data fetching** and graceful error handling  
-- Applied **UI/UX motion principles** and unified visual design  
-- Learned to use **AI tools responsibly** for creativity and productivity  
+- Building multi-step interaction flows (filtering systems, validation, persistence)
+- Implementing live external APIs with robust error handling
+- Deepening understanding of React hooks, async fetches, and derived state
+- Applying performance optimization techniques (compression, lazy loading)
+- Writing clean documentation for professional software delivery
 
 ---
 
@@ -199,5 +263,5 @@ Software Engineering Student : KFUPM
 
 ## License
 
-This project is part of **SWE 363 - Web Engineering (Assignment 2)**.  
+This project is part of **SWE 363 - Web Engineering (Assignment 3)**.  
 All assets and APIs are used for educational purposes only.

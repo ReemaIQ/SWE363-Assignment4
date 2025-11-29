@@ -5,15 +5,86 @@
     align-items: stretch;
 }
 
-/* spacing for the section heading */
+/* (old direct h2 spacing */
 #projects > h2 {
+    margin: 0 0 16px 0;
+    text-align: center;
+}
+
+#repos > h2 {
+    margin: 0 0 16px 0;
+    text-align: center;
+}
+
+/* =========================
+   Repositories header
+   ========================= */
+#repos .repos__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
     margin: 0 0 16px 0;
 }
 
+#repos .repos__header h2 {
+    margin: 0;
+    text-align: center;
+}
 
+/* tiny, elegant clear button */
+#repos .repos__clear {
+    border: none;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.9rem;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+}
+
+/* =========================
+   Projects header – mirror Repos
+   ========================= */
+#projects .projects__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    margin: 0 0 16px 0;
+}
+
+#projects .projects__header h2 {
+    margin: 0;
+    text-align: center;
+}
+
+#projects .projects__clear {
+    border: none;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.9rem;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+}
+
+
+.rb-grid--starred {
+    margin-bottom: 20px;
+}
+
+/* small subheadings inside Projects/Repos */
+#projects .projects__subheading {
+    margin: 18px 0 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: left;
+}
+
+
+/* Fade-in used for empty states */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-4px); }
     to   { opacity: 1; transform: translateY(0); }
 }
-
-#projects > h2 { margin: 0 0 12px 0; }

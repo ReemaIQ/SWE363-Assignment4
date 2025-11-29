@@ -78,7 +78,10 @@ body::after {
     justify-content: center;              /* Center the list */
     gap: 2rem;                            /* Even spacing between links */
     /* Remove default spacing the browser adds to lists. */
-    margin: 0;                            /* Reset default list margin */
+    margin-top: 0;                            /* Reset default list margin */
+    margin-bottom: 0;
+    margin-left: 20px;
+    margin-right: 20px;
     padding: 0;                           /* Reset default list padding */
 }
 
@@ -323,5 +326,21 @@ footer {
 
     .navbar ul {
         gap: 1.25rem;          /* tighter nav spacing */
+    }
+}
+
+/* Make the fancy animated background lighter on small screens */
+@media (max-width: 600px) {
+    body::after {
+        filter: blur(12px) contrast(1.05) saturate(1.1); /* smaller blur, lighter filters */
+        animation: none;                                 /* stop continuous animation on mobile */
+    }
+}
+
+/* Performance + accessibility: if user prefers reduced motion, stop animating the big background */
+@media (prefers-reduced-motion: reduce) {
+    body::after {
+        animation: none;
+        transform: none;
     }
 }

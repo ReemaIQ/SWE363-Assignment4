@@ -1,104 +1,244 @@
-# Technical Documentation: Reema Al-Qahtani Portfolio (SWE363-Assignment 2)
+# Technical Documentation: Reema Al-Qahtani Portfolio (SWE363 - Assignment 3)
 
-This document provides a technical overview of the updated interactive portfolio website built using **React + Vite** for **SWE 363 - Web Engineering (Assignment 2)**.  
-It explains the system structure, key components, and how interactivity, data handling, and visual polish were achieved.
+This document provides a technical overview of the enhanced, API-driven, responsive, and performance-optimized portfolio built using **React + Vite** for **SWE 363 - Web Engineering (Assignment 3)**.  
+It explains the architecture, components, state management, API integrations, and improvements made over Assignment 2.
 
 ---
 
 ## 1. Architecture Overview
 
-The portfolio follows a **Single-Page Application (SPA)** model powered by **React** and compiled through **Vite**.  
-All rendering, animations, and data interactions occur client-side.  
-The project emphasizes modularity, each section (Hero, Projects, Contact Form, TriviaMCQ, etc.) lives in its own folder under `/src/components/`.
+The application follows a **Single-Page Application (SPA)** pattern using **React 18**, bundled with **Vite** for fast dev and optimized builds.
 
-**Technology Stack:**  
-- React 18 (Vite setup)  
-- HTML 5 + JSX  
-- Modern CSS with `clamp()`, `backdrop-filter`, and `color-mix()`  
-- JavaScript (ES Modules + Hooks)  
+### Key Architectural Principles
+- Fully client-side rendering  
+- Modular folder structure (`components/`, `hooks/`, `data/`, `utils/`)  
+- State-driven rendering for all logic (filters, favorites, form feedback, trivia results)  
+- External API integration (Trivia, Quotes, GitHub Repos)  
+- Persistent state using `localStorage`  
+- Improved mobile responsiveness and Lighthouse performance
 
-**Theme & Aesthetic:**  
-Unified “**glassy interface**” with soft light gradients and animated card motions.  
-Design consistency was refined with brief AI consultations to balance tone, color, and blur intensity.
+### Technology Stack
+- **React 18 (Vite)**
+- **JavaScript ES Modules + Hooks**
+- **HTML 5**
+- **Modern CSS** (`clamp()`, `flex`, `grid`, `backdrop-filter`, responsive breakpoints)
+- **Fetch API** (async/await)
+
+### Visual Theme
+A refined **glassy UI** using subtle gradients, shadows, blur effects, and soft motion.  
+Consistency was improved using modular CSS and adjustments based on feedback/testing.
 
 ---
 
 ## 2. Component Deep Dive
 
 ### 2.1 Hero Section (`Hero.jsx` + `Hero.css`)
-The Hero acts as the entry section with a real-time clock and contextual greeting.  
-It reuses parts of previous React labs (e.g., the `useEffect` clock) with an improved render cleanup.
+The Hero provides the first interactive experience: live clock + dynamic greeting.
 
 | Feature | Description |
-|:---|:---|
-| **Dynamic Clock** | Uses `useState` + `useEffect` to update every second via `setInterval`. A cleanup function clears the timer on unmount. |
-| **Greeting Logic** | Adjusts message based on hour (`Good Morning`, `Afternoon`, `Evening`). |
-| **Visual Layout** | Center-aligned logo, heading, and tagline using flexbox and responsive typography. |
-| **Button** | Smooth scrolls to the Projects section using React’s anchor navigation. |
+|--------|-------------|
+| **Live Clock** | Uses `useEffect` + `setInterval` (with cleanup) to update every second. |
+| **Greeting Logic** | Computes “Good Morning / Afternoon / Evening” based on hour. |
+| **Responsive Layout** | Typography uses `clamp()` for scaling on small screens. |
+| **CTA Behavior** | Smooth scrolls to Projects/Repos using anchor navigation. |
 
-> *Note:* ChatGPT helped clarify how to avoid extra renders from multiple `useEffect` calls.
-
----
-
-### 2.2 Projects Grid and Tilt Cards (`Projects.jsx`, `ProfileCard.jsx`)
-Each project is displayed in a card with 3D tilt motion on hover, a custom effect built from scratch with `requestAnimationFrame`.
-
-| Component | Description |
-|:---|:---|
-| **`ProfileCard.jsx`** | Handles tilt animation via continuous switch between target and current rotation states. |
-| **`ProjectsGrid.css`** | Manages grid layout, spacing, and responsive column count using `auto-fit minmax()`. |
-| **Search & Filter** | Controlled inputs update the grid in real time; logic fixed after debugging with AI feedback on array filter chaining. |
-
-> *AI prompt example:* “Why does my filter return nothing when two criteria are selected?” led to correct filter.
+The clock and greeting were refactored to minimize re-renders and avoid duplicate intervals.
 
 ---
 
-### 2.3 Trivia Card (`TriviaMCQ.jsx` + `TriviaMCQ.css`)
-A self-contained interactive feature that fetches facts from the **Useless Facts API** and lets users answer True/False.  
-It illustrates API handling, error feedback, and dynamic styling.
+### 2.2 Projects Section & Filter System  
+(`Projects.jsx`, `ProjectFilters.jsx`, `MonthRangePicker.jsx`, `useProjectFilters.js`)
 
-| Feature | Implementation |
-|:---|:---|
-| **Data Fetch** | `fetch("https://uselessfacts.jsph.pl/random.json?language=en")` inside `useEffect`. |
-| **State Control** | `status`, `fact`, `choice`, `isCorrect` handled with React state. |
-| **Feedback** | Shows “you’re correct” / “almost there” messages with links to the source. |
-| **Design** | Styled to match project cards, glassy border, subtle hover movement, centered layout. |
+This section implements a complete mini-query engine for local project data.
 
-> *AI prompt example:* “How can I reach this effect on buttons (see image) and could you show sample code?”  
-> : used to learn about `backdrop-filter` and `rgba()` balances before customizing the final design.
+#### Features
+- Live text search  
+- Multi-select skill chips  
+- Month range filtering (custom date parsing → timestamps)  
+- Sorted output (newest → oldest)  
+- Persistent starred projects (via localStorage)
 
----
+#### Key Logic (in `useProjectFilters`)
+- Converts `MMM YYYY` strings into timestamps  
+- Chains filters instead of resetting arrays  
+- Deduplicates selected skills  
+- Returns both *filtered data* and *all available skill tags*
 
-### 2.4 Contact Form (`ContactForm.jsx` + `ContactForm.css`)
-The form validates user input client-side and shows inline messages without refreshing.
-
-| Component | Behavior |
-|:---|:---|
-| **Validation** | Regex for email format; length check for message (≥ 10 chars). |
-| **Feedback UI** | Errors display under each field; success message appears in status area. |
-| **Glassy Button** | Unified styling with other components (`display:inline-flex; backdrop-filter: blur(16px);`). |
-| **Social Buttons** | Added for direct contact (email + LinkedIn). |
+This was significantly improved over Assignment 2 with cleaner logic and stronger state isolation.
 
 ---
 
-## 3. Design System & Theming
-The entire site uses a custom CSS variable system defined in `:root` for light and dark modes.  
+### 2.3 GitHub Repositories Section  
+(`GithubRepos.jsx`, `useGithubRepos.js`, `RepoFilters.jsx`)
 
-| Variable | Purpose |
-|:---|:---|
-| `--rb-surface` | Base card background (blurred white layer). |
-| `--rb-bg1`, `--rb-bg2` | Gradient colors used in radial backgrounds. |
-| `--rb-text`, `--rb-subtext` | Text contrast and secondary color tones. |
-| `--rb-stroke` | Border transparency and divider color. |
+This new section integrates live external data using the **GitHub REST API**:
+`https://api.github.com/users/ReemaIQ/repos ` 
 
-Animations (`@keyframes cfPulse`, `@keyframes triviaFade`) add micro-interactions without hurting performance.  
-All units use `clamp()` for scalable typography.
+
+| Capability | Implementation |
+|-----------|-----------------|
+| **API Fetch** | Performed via `useEffect`. Handles loading, error, and retry. |
+| **Search + Filter** | Search by name/description, filter by language, or by updated-month. |
+| **Card Rendering** | Each repo rendered as a card: name, description fallback, language, updated date. |
+| **Error Handling** | Rate-limit/network issues trigger a friendly UI message. |
+| **Starred** | Star/unstar with persistence via `localStorage`. |
+
+The section reuses the same filtering architecture as Projects for design consistency.
 
 ---
 
-## 4. Data Handling & Local Storage
-A custom hook `useLocalStorage(key, initialValue)` stores light preferences like username.  
-It keeps data persistent between sessions without any external library.
+### 2.4 Trivia Card  
+(`TriviaTF.jsx` + `ActivityCard.css`)
+
+The trivia card fetches live facts using:
+`https://uselessfacts.jsph.pl/random.json?language=en`
+
+
+| Feature | Description |
+|--------|-------------|
+| **API Fetch** | Fact fetched inside `useEffect` and when “New Question” is pressed. |
+| **State Machine** | `status`, `fact`, `choice`, `isCorrect` manage the quiz cycle. |
+| **Feedback** | Inline correctness messages + animated state transitions. |
+| **Error Fallback** | Shows “Could not load fact” with retry button. |
+| **Layout Stability** | Uses fixed `min-height` to prevent card jumping during reloads. |
+
+This component is a central demonstration of asynchronous state + dynamic UI.
+
+---
+
+### 2.5 Quote Card  
+(`QuoteCard.jsx`, `useQuote.js`)
+
+A lightweight API integration that provides a refreshing motivational quote.
+
+- Loads once on component mount
+- Supports manual refresh
+- Gracefully handles API failures
+- Uses a stable card height to avoid layout shifts
+
+---
+
+### 2.6 Contact Form  
+(`ContactForm.jsx` + `ContactForm.css`)
+
+Implements a full validation + async submission workflow.
+
+| Behavior | Implementation |
+|---------|-----------------|
+| **Validation Rules** | Name required, email regex, message length ≥ 10. |
+| **Inline Errors** | Stored in `errors` state and shown per field. |
+| **Async Simulation** | Uses `setTimeout` to simulate request sending. |
+| **Status Messages** | `statusType: "ok" | "error"` displayed after send. |
+| **Responsive Design** | Form card scales down on small devices without overflow. |
+
+---
+
+## 3. Design System & Responsiveness
+
+### Core Principles
+- Prevent layout shift (especially Trivia/Quote/GitHub cards)
+- Keep all cards equal-width and similar height across breakpoints
+- Scale typography with `clamp()`
+- Ensure no component overflows horizontally
+
+### CSS Techniques
+| Technique | Purpose |
+|----------|---------|
+| `min-height` on dynamic cards | Prevent resize jumps when text length changes |
+| `loading="lazy"` on images | Reduce initial load & improve LCP |
+| Compressed PNGs | Lower network footprint |
+| `grid-template-columns: repeat(auto-fit, minmax())` | Adaptive card grid |
+| Media queries at 600px & 400px | Polished small-screen experience |
+| `backdrop-filter` + gradients | Consistent glassy aesthetic |
+
+All components now behave predictably across mobile, tablet, and desktop.
+
+---
+
+## 4. Data Handling & State Persistence
+
+The portfolio uses several layers of state:
+
+### 4.1 React State
+Used for:
+- project filters  
+- repo filters  
+- trivia status  
+- quote loading  
+- contact form errors  
+- favorite toggles  
+- hero clock  
+
+### 4.2 Local Storage (via `useLocalStorage`)
+Two persistent keys:
+
+| Key | Purpose |
+|-----|---------|
+| `"rb-fav-projects"` | Stores starred project IDs |
+| `"rb-fav-repos"` | Stores starred GitHub repos |
+
+State sync follows this pattern:
 
 ```js
-const [username, setUsername] = useLocalStorage("username", "");
+const [favProjects, setFavProjects] = useLocalStorage(
+  "rb-fav-projects",
+  []
+);
+```
+
+This keeps the user experience consistent even after browser refreshes.
+
+---
+
+## 5. Performance Optimization
+
+A major part of Assignment 3 involved improving **Lighthouse metrics**.
+
+### Techniques Applied
+- Image compression  
+- Lazy loading for non-critical images  
+- Removal of unused files, console logs, and leftover components  
+- Optimized card layouts to prevent reflows  
+- Added meta description for SEO  
+- Improved robots.txt validity  
+- Stabilized heights of dynamic cards to avoid layout shift  
+
+### Lighthouse Results (Final Build)
+
+| **Metric**       | **Before** | **After** |
+|------------------|-----------:|----------:|
+| Performance      | ~59        | **92–97** |
+| Accessibility    | 100        | **100**   |
+| Best Practices   | 100        | **100**   |
+| SEO              | 83         | **92**    |
+| FCP              | 6.5 s      | **0.8 s** |
+| LCP              | 12.2 s     | **1.1 s** |
+
+---
+
+## 6. External APIs Summary
+
+| **API** | **Endpoint** | **Usage** |
+|---------|--------------|-----------|
+| **Trivia API** | `https://uselessfacts.jsph.pl/random.json?language=en` | Random fact quiz |
+| **Quote API** | `https://motivational-spark-api.vercel.app/api/quotes/random` | Daily motivational quote |
+| **GitHub REST API** | `https://api.github.com/users/ReemaIQ/repos` | Real-time repo cards |
+
+All APIs have error-state UI fallbacks and retry mechanisms.
+
+---
+
+## 7. Conclusion
+
+This assignment significantly expanded the portfolio with:
+
+- Three real external APIs  
+- Complex filtering systems  
+- Persistent favorites  
+- Enhanced responsiveness  
+- Serious performance improvements  
+- Better error handling  
+- Visually consistent, professional UI behavior  
+
+The overall architecture is now **scalable**, **modular**, and **production-friendly**.
+

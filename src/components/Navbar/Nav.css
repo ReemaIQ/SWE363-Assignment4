@@ -1,0 +1,90 @@
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    width: 100%;
+    background: rgba(5, 5, 35, 0.75);
+    backdrop-filter: blur(12px);
+}
+
+/* inner container */
+.navbar nav {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 8px clamp(12px, 4vw, 24px);
+}
+
+/* UL: flex + WRAP so items never disappear */
+.navbar nav ul {
+    display: flex;
+    flex-wrap: wrap;                          /* important */
+    justify-content: center;
+    align-items: center;
+    gap: clamp(8px, 2vw, 20px);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* remove default li spacing */
+.navbar nav li {
+    margin: 0;
+    padding: 0;
+}
+
+/* links */
+.navbar nav a,
+.Nav {
+    text-decoration: none;
+    font-weight: 600;
+    color: #ffffff;
+    font-size: clamp(0.8rem, 1.5vw, 1rem);   /* auto-shrinks on small screens */
+    white-space: nowrap;                     /* each label stays on one line */
+    transition: opacity 0.15s ease;
+}
+
+.navbar nav a:hover,
+.Nav:hover {
+    opacity: 0.8;
+}
+
+/* extra tweaks for very small screens */
+@media (max-width: 600px) {
+    .navbar nav {
+        padding-inline: 10px;
+    }
+
+    .navbar nav ul {
+        justify-content: center;             /* center 2 rows */
+        gap: 10px;
+    }
+}
+
+/* Small popup / toast under the navbar */
+.nav-toast {
+    position: fixed;
+    top: 72px; /* just below the navbar height */
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.6rem 1.2rem;
+    background: rgba(20, 1, 40, 0.92);
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    font-size: 0.9rem;
+    z-index: 30;
+    text-align: center;
+    max-width: min(90vw, 420px);
+    animation: nav-toast-in 0.2s ease-out;
+}
+
+@keyframes nav-toast-in {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}

@@ -1,102 +1,132 @@
-# AI Usage Report: Interactive Portfolio Website (SWE363–Assignment 2)
+# AI Usage Report: Advanced Interactive Portfolio (SWE363 - Assignment 3)
 
-This report reflects how AI tools, mainly **ChatGPT** and **GitHub Copilot**, supported the development of my interactive portfolio website for **SWE 363 - Web Engineering**.  
-I used them mostly for quick clarifications, design feedback, and fine-tuning.
-
+This report documents how I used **ChatGPT** as a development assistant during Assignment 3 of **SWE 363 - Web Engineering**.  
+I relied on AI mainly for clarification, debugging ideas, responsiveness improvements, and polishing documentation.  
+All architectural and implementation decisions were ultimately made by me.
 
 ---
 
 ## Tools Used
-- **ChatGPT** : accessed through a browser for guidance and debugging.  
-- **GitHub Copilot** : offered minor autocompletion help in *WebStorm* while I wrote JSX and CSS.  
+- **ChatGPT**: Used through the browser for guidance, debugging reasoning, and help breaking down problems.
 
 ---
 
 ## Areas of Assistance
 
-### 1. Project Setup & Organization
-Early on, I asked ChatGPT a few small questions to confirm setup steps for a **Vite + React** environment and how folder structures typically flow.  
-It clarified where to place files like `main.jsx` and how component imports get resolved.  
-From there, I adjusted everything to my own preference.
+### 1. Responsiveness & Mobile Layout Fixes
+One recurring issue was that some components (Trivia card, Quote card, and the Repo/Project cards) behaved unpredictably on small screens.  
+I used ChatGPT to help reason through responsive strategies, container flex rules, and preventing unwanted resizing.
 
-> **Sample prompt:**  
-> “Can you walk me through how Vite automatically connects index.html to the React entry file?”
+> **Sample prompts:**  
+> • “How do I make the web page more mobile / small-screen compatible?”  
+> • “Why are my cards overlapping on small screens? What CSS causes this?”  
+> • “When I press ‘New Question’, why does the trivia card change height and force the quote card to resize too?”
 
----
-
-### 2. Component Integration & Reuse
-I reused some pieces from older React labs and small projects (like dynamic greetings and filters) and assignment1.  
-When I combined them into one Hero section, I asked for tips on keeping the clock update efficient.  
-ChatGPT explained how to limit intervals and cleanup effects.
-
-> **Sample prompt:**  
-> “Why does my clock keep updating twice even though I’m using useEffect? What’s the clean fix?”
-
-The clarification given was enough to be able to refactore it and learn more about how hooks trigger.
+From these explanations, I refined my media queries, ensured consistent `.rb-card` min-heights, and stabilized the layout.
 
 ---
 
-### 3. Testing & Cleaning Experimental Features
-I briefly experimented with a **Liquid Ether** background effect on a separate branch.  
-It did't look as expected and caused performance drops when combined with the tilt motion.  
-AI helped me figure out how to remove the feature cleanly and reset my repo without affecting imports or styles.
+### 2. Bug Diagnosis & Component Behavior
+Some UI behaviors did not look professional - especially the Trivia card expanding when the text length changed, causing neighboring cards to shift.  
+ChatGPT helped me understand why dynamic content affects card height, and suggested techniques such as:
+
+- fixed `min-height` for dynamic cards  
+- preventing reflow by stabilizing padding/spacing  
+- using flexbox alignment to isolate card changes  
+
+This helped me polish the final UI behavior.
 
 > **Sample prompt:**  
-> “What’s the simplest way to remove a test component and revert my branch safely in Git?”
+> “How do I stop one card from resizing the whole row when its content changes?”
 
 ---
 
-### 4. Visual Consistency & Glassy Design
-AI was useful for polishing the visual side, mostly CSS tweaks.  
-I wanted all cards, forms, and buttons to share the same “glassy” feel.  
-ChatGPT explained how `backdrop-filter`, `color-mix()`, and light shadows could create that look.  
+### 3. API Integration Clarifications
+I used three external APIs in Assignment 3, and occasionally needed quick clarifications about best practices, structure, and naming conventions.
 
-> **Sample prompt:**  
-> “How can I reach this effect on buttons (see image) and could you show sample code?”
+> **Sample prompts:**  
+> • “What API is used for GitHub repos? Can you confirm the REST endpoint?”  
+> • “Is it okay to filter GitHub repos on the client side or should I use query params?”  
+> • “What’s the exact trivia API URL again?”
 
-After seeing an example, I customized the gradients, radii, and transitions myself to match the rest of the portfolio.
+These responses helped me confirm I was using the correct endpoints:
 
----
-
-### 5. Debugging & Logic Fixes
-During testing, my search bar filtered correctly by one tag but failed when two were active.  
-I asked AI for a second opinion on the logic, it pointed out that I was resetting the array each time instead of chaining filters.  
-That hint was enough to spot the issue and fix it right away.
-
-> **Sample prompt:**  
-> “If multiple filters reset the results array, how should I combine them properly in JavaScript?”
+- Trivia API: `https://uselessfacts.jsph.pl/random.json?language=en`  
+- Quote API: `https://motivational-spark-api.vercel.app/api/quotes/random`
+- GitHub API: `https://api.github.com/users/ReemaIQ/repos`
 
 ---
 
-### 6. Writing & Documentation
-When the project wrapped up, I used AI mostly for small writing tasks, polishing Markdown and making sections consistent across the **README** and **AI Usage Report** files.  
-I already had the content written but wanted it to look structured and clean.
+### 4. UI Feedback Elements (Toasts, Messages, Error States)
+For Assignment 3 I added a **self-disappearing toast** that informs the user when they click “Starred Projects” or “Starred Repos” with no starred items.
+
+I asked ChatGPT to clarify UI terminology and provide a minimal structure for a reusable toast.
+
+> **Sample prompts:**  
+> • “What’s the name of a pop-up that disappears on its own after a few seconds?”  
+> • “Can you show me a generic toast skeleton for React?”  
+> • “How do I auto-close a toast using setTimeout?”
+
+ChatGPT explained the concept, terminology, and timing patterns.  
+I adapted the code to my own styling and timing preferences.
+
+---
+
+### 5. Performance & Lighthouse Improvements
+Performance was a major part of Assignment 3.  
+I used ChatGPT to reason about how my assets, images, and layout affected the Lighthouse score.
+
+> **Sample prompts:**  
+> • “How can I improve Lighthouse performance and SEO scores?”  
+> • “Why is my LCP so high even though the page has only a hero image?”  
+> • “Should I compress images or lazy-load them first?”
+
+Based on suggested techniques, I applied:
+
+- image compression  
+- `loading="lazy"` on non-critical images  
+- removing unused components  
+- adding meta descriptions  
+- cleaning up CSS and layouts  
+
+These changes directly contributed to performance increasing from ~59 → 92–97.
+
+---
+
+### 6. Technical Writing & Documentation
+
+When preparing Assignment 3 documentation (README, technical-documentation.md, this AI-report), I used ChatGPT for **formatting help**, such as:
+
+- converting bullet points into clean Markdown  
+- rewriting lists into tables  
+- making sections uniform across the docs  
 
 > **Sample prompt:**  
-> “Turn this Report (Report attached) into .md Markdown”
+> “Turn this into a clean .md section with proper headings.”
 
-It helped me with layout and headings, not the content itself.
+Content was mainly written by me; ChatGPT helped make it more organized and standardized.
 
 ---
 
 ## Takeaways
-- Improved my understanding of **React hooks**, **state flow**, and **CSS effects** through brief AI explanations.  
-- Learned how to integrate older components smoothly instead of starting from scratch.  
-- Used AI mostly as a quick reference, it guided reasoning.  
-- Became more confident writing clear Markdown documentation and organized commits.  
+- Improved understanding of **responsive design**, especially stabilizing card sizes and preventing layout shifts.  
+- Learned performance best practices such as **lazy loading**, **image compression**, and **avoiding unnecessary DOM reflow**.  
+- Became more confident integrating and filtering **external APIs**.  
+- Strengthened debugging skills, AI helped explain *why* something breaks, but I applied and verified all solutions myself.  
+- Documentation became more polished and consistent across files.
 
 ---
 
 ## Author
 
 **Reema Ibrahim Al-Qahtani**  
-Software Engineering Student : KFUPM  
-📧 [Reeema.work@kfupm.edu.sa](mailto:Reeema.work@kfupm.edu.sa)  
-📧 [s202244660@kfupm.edu.sa](mailto:s202244660@kfupm.edu.sa)  
-🔗 [LinkedIn](https://www.linkedin.com/in/reema-ibrahim-53ba5236a/) | [GitHub](https://github.com/ReemaIQ)
+Software Engineering Student - KFUPM  
+📧 Reeema.work@kfupm.edu.sa  
+🔗 GitHub: https://github.com/ReemaIQ  
+🔗 LinkedIn: https://www.linkedin.com/in/reema-ibrahim-53ba5236a/
 
 ---
 
 ## License
-This project was completed for **SWE 363 – Web Engineering** (Assignment 2).  
-All assets, visuals, and code were created for academic use.
+This project was created for **SWE 363 - Web Engineering (Assignment 3)**.  
+All code, visuals, and assets were produced for educational purposes.

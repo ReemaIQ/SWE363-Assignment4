@@ -9,18 +9,21 @@ export default function ProfileCard({
                                         about,
                                         skills = [],
                                         withTilt = true,
-                                    }) {
-    const cardRef = React.useRef(null);     // the outer card (has perspective)
+                                        showAvatar = true,
 
-    // smooth tilt state
+                                        // NEW
+                                        isStarred = false,
+                                        onToggleStar, // () => void
+                                    }) {
+    const cardRef = React.useRef(null);
+
     const target = React.useRef({ rx: 0, ry: 0, tz: 0, tx: 0, ty: 0 });
     const current = React.useRef({ rx: 0, ry: 0, tz: 0, tx: 0, ty: 0 });
     const rafId = React.useRef(0);
 
-    // animation loop
     const animate = React.useCallback(() => {
         if (!cardRef.current) return;
-        const damp = 0.12; // <— smoothing (lower = smoother/slower)
+        const damp = 0.12;
         current.current.rx += (target.current.rx - current.current.rx) * damp;
         current.current.ry += (target.current.ry - current.current.ry) * damp;
         current.current.tz += (target.current.tz - current.current.tz) * damp;
@@ -36,49 +39,38 @@ export default function ProfileCard({
 
     function handleEnter() {
         if (!withTilt) return;
-        // kick the loop if it's not running
         if (!rafId.current) rafId.current = requestAnimationFrame(animate);
     }
 
     function handleMove(e) {
         if (!withTilt || !cardRef.current) return;
         const rect = cardRef.current.getBoundingClientRect();
-        const x = e.clientX - rect.left;   // inside card
+        const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
 
         const midX = rect.width / 2;
         const midY = rect.height / 2;
 
-        // STRONGER movement
-        const rotateMax = 20;     // degrees
-        const translateMax = 8;   // px for subtle parallax
+        const rotateMax = 20;
+        const translateMax = 8;
 
-        // normalized -1..1
         const nx = (x - midX) / midX;
         const ny = (y - midY) / midY;
 
-        // target rotation
         const ry = nx * rotateMax;
         const rx = -ny * rotateMax;
-
-        // small parallax translate
         const tx = nx * translateMax;
         const ty = ny * translateMax;
-
-        // subtle pop-out
-        const tz = 12; // px towards viewer
+        const tz = 12;
 
         target.current = { rx, ry, tz, tx, ty };
 
-        // ensure loop is running (robust per card)
         if (!rafId.current) rafId.current = requestAnimationFrame(animate);
     }
 
     function handleLeave() {
-        // return to rest + stop the loop cleanly
         target.current = { rx: 0, ry: 0, tz: 0, tx: 0, ty: 0 };
 
-        // let it ease back for ~200–300ms then cancel
         setTimeout(() => {
             cancelAnimationFrame(rafId.current);
             rafId.current = 0;
@@ -101,16 +93,51 @@ export default function ProfileCard({
             onMouseLeave={handleLeave}
         >
             <div className="rb-card__bg" aria-hidden="true" />
+
+            {/* Star button – top right */}
+            {typeof onToggleStar === "function" && (
+                <button
+                    type="button"
+                    className={`rb-star-btn ${
+                        isStarred ? "rb-star-btn--active" : ""
+                    }`}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        onToggleStar();
+                    }}
+                    aria-pressed={isStarred}
+                    aria-label={
+                        isStarred
+                            ? "Remove from favorites"
+                            : "Add to favorites"
+                    }
+                >
+                    {isStarred ? "★" : "☆"}
+                </button>
+            )}
+
             <div className="rb-card__content">
-                <img className="rb-avatar" src={avatar} alt={avatarAlt} />
+                {showAvatar && avatar && (
+                    <img
+                        className="rb-avatar"
+                        src={avatar}
+                        alt={avatarAlt}
+                        loading="lazy"   // delays loading until near viewport
+                    />
+                )}
+
+
                 <h3 className="rb-name">{name}</h3>
                 <p className="rb-subtitle">{title}</p>
                 <p className="rb-about">{about}</p>
             </div>
+
             <footer className="rb-footer">
                 <ul className="rb-skills" aria-label="Skills">
                     {skills.map((s, i) => (
-                        <li key={i} className="rb-skill">{s}</li>
+                        <li key={i} className="rb-skill">
+                            {s}
+                        </li>
                     ))}
                 </ul>
             </footer>

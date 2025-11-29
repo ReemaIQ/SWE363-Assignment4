@@ -1,6 +1,6 @@
 import React from "react";
 import "./Hero.css";
-import TriviaMCQ from "../Activities/TriviaMCQ.jsx";
+import TriviaTF from "../Activities/TriviaTF.jsx";
 import QuoteCard from "../Activities/QuoteCard.jsx";
 
 import logo from "../../assets/images/R-logo.png";
@@ -89,7 +89,7 @@ export default function Hero() {
             {/* Activities section: Trivia + Quote cards under the hero */}
             <section id="activities" className="hero__trivia">
                 <div className="hero__trivia-row">
-                    <TriviaMCQ />
+                    <TriviaTF />
                     <QuoteCard />
                 </div>
             </section>
