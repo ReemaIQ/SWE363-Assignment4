@@ -10,6 +10,11 @@ Developed using **React 18 and Vite**, this application is a dynamic, high-perfo
 
 
 ---
+### Depolyment
+
+**https://reemaiq.github.io/SWE363-Assignment4/**
+
+---
 
 ## Key Features & Functionality
 This portfolio features a rich set of interactive and data-driven components:
