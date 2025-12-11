@@ -1,35 +1,30 @@
-# Assignment 3 - Advanced Functionality
+# Assignment 4 - Final Personal Portfolio
 ### **Reema Ibrahim Al-Qahtani | SWE 363 | Term 251**
 
+
+
+This assignment builds on the previous portfolio (Assignments 1,2, & 3).
+This project is the final version of a personal portfolio website for a Software Engineering student at KFUPM.
+
+Developed using **React 18 and Vite**, this application is a dynamic, high-performance showcase that blends professional design with advanced web engineering concepts. It serves as a professional introduction to potential collaborators and recruiters, demonstrating proficiency in modern frontend development, API integration, and performance optimization.
+
+
 ---
 
-## Project Title: **Reema’s Advanced Interactive Portfolio (A3 update)**
-
-This assignment builds on the previous portfolio (A1 & A2) and extends it with  
-**API integrations, multi-step logic, state persistence, performance optimization, and documentation**.  
-The entire application is implemented using **React + Vite**, following a clean, modular structure with reusable components, custom hooks, and responsive design.
-
----
-
-## Feature Overview
+## Key Features & Functionality
+This portfolio features a rich set of interactive and data-driven components:
 
 | Category | Feature | Description |
-|---------|---------|-------------|
-| **API Integration** | **Trivia API** | Fetches live trivia questions with True/False answers + correctness logic + error fallback. |
-| | **Quote API** | Shows a “Quote of the Day” with refresh + graceful error handling. |
-| | **GitHub Repos API** | Loads real GitHub repositories for `ReemaIQ`, displays them in cards, supports search, language filtering & month filtering. |
-| **Complex Logic** | **Project & Repo Filtering** | Text search, multi-select skill chips, date/month filtering, sorting by timestamp. |
-| | **Favorites System** | Star/unstar items for Projects and Repos with persistent storage via localStorage. |
-| | **Contact Form** | Full validation flow → inline errors → async “sending…” → success/error message. |
-| | **Empty State Messages** | Auto-closing toast shown when “Starred Projects/Repos” are empty. |
-| **State Management** | **React State + Effects** | Hero clock, filters, trivia choices, repo data, favorites, submission status. |
-| | **Persistent Storage** | Favorites stored under `rb-fav-projects` and `rb-fav-repos` in localStorage. In addition filtering choices (in projects or GitHub repositories are also saved to local storage|
-| **Performance** | **Image Compression** | All hero/project stickers compressed (e.g., 850 KB → 200–300 KB). |
-| | **Lazy Loading** | Non-critical images use `loading="lazy"` for faster load. |
-| | **CSS/JS Cleanup** | Removed unused files, console logs, and heavy assets. |
-| | **Lighthouse Optimization** | Performance improved from **59 → 92–97**, Accessibility 100, Best Practices 100. |
-| **Responsiveness** | **Mobile Fixes** | Cards resize properly, Trivia/Quote no longer squish, Navbar & sections no overflow. |
-| **AI Innovation** | **ChatGPT** | Used for architecture discussions, debugging, styling ideas, and documentation phrasing. |
+| :--- | :--- | :--- |
+| **Data Integration** | **GitHub Repos API** | Loads live repositories from the `ReemaIQ` GitHub account with dynamic filtering and search. |
+| | **Trivia & Quote APIs** | Interactive **True/False Trivia** and a refreshable **"Quote of the Day"** with robust error handling. |
+| **Complex Logic** | **Project & Repo Filtering** | Full-featured filtering system by text, skills/language chips, and month range, with persistent state. |
+| | **Favorites System** | Persistent **Star/Unstar** functionality for projects and repos using **`localStorage`**. |
+| | **Contact Form** | Complete validation flow (inline errors, simulated async "sending..." state, success/fail feedback). |
+| **Performance** | **Lighthouse Optimization** | Significant performance improvement (**92-97 score**) through image compression and lazy loading. |
+| **Design/UX** | **Glass-morphism** | Unified, modern aesthetic using translucent, frosted design elements. |
+| | **Dynamic Hero** | Real-time digital clock and a dynamic greeting based on the time of day. |
+| | **Responsiveness** | Fully optimized for mobile and desktop, ensuring proper resizing and no overflows. |
 
 ---
 
@@ -176,11 +171,13 @@ SWE363-Assignment3/
 ---
 
 ## Technologies Used
-- **React 18 + Vite**
-- **HTML5 / CSS3 / JavaScript (ES6+)**
-- **Glass-morphism** and responsive design
-- **Fetch API** and **local storage**
-- **AI assistance:** ChatGPT
+
+* **Frontend:** **React 18** (with Hooks and functional components)
+* **Build Tool:** **Vite**
+* **Web Standards:** **HTML5, CSS3, JavaScript (ES6+)**
+* **Data Handling:** **Fetch API** (for all external integrations), **`localStorage`** (for state persistence)
+* **Design:** **Glass-morphism** principles, fully responsive CSS.
+* **Assistance:** **ChatGPT** (architecture, debugging, API clarification), **GitHub Copilot** (code completion).
 
 
 ---
@@ -214,8 +211,8 @@ SWE363-Assignment3/
 
 
 ### 1. Clone repository
-`git clone https://github.com/ReemaIQ/SWE363-Assignment3`
-`cd SWE363-Assignment3`
+`git clone https://github.com/ReemaIQ/SWE363-Assignment4`
+`cd SWE363-Assignment4`
 
 ### 2. Install dependencies
 `npm install`
@@ -229,11 +226,13 @@ Open your browser to **[http://localhost:5173/](http://localhost:5173/)**.
 
 ## AI Usage Summary
 
+AI tools were leveraged as advanced learning aids and collaborators, enhancing both development and documentation.
+
 | Tool | Purpose | Outcome |
-|------|----------|----------|
-| **ChatGPT** | Helped debug mobile responsiveness, overlapping cards, unstable Trivia card height, and Lighthouse/SEO issues | Improved layout stability, performance scores, and polished UI behavior |
-| **ChatGPT** | Clarified API usage (GitHub REST, Trivia API), naming (toast messages), and async patterns | Enabled cleaner API integration and consistent UI feedback components |
-| **AI Assistance in Documentation** | Converted sections into Markdown, structured tables, refined README phrasing | Produced cleaner, more professional project documentation |
+| :--- | :--- | :--- |
+| **ChatGPT** | Architecture, complex debugging (mobile layout, unstable components), API integration logic, styling ideas. | Improved layout stability, performance scores, and cleaner API handling. |
+| **GitHub Copilot** | Inline code completions for JSX, CSS, and repetitive tasks. | Simplified and accelerated the coding process. |
+| **Documentation** | Structuring tables, refining project descriptions, and ensuring professional Markdown format. | Produced clearer, more readable project documentation. |
 
 
 See **`docs/ai-usage-report.md`** for detailed examples of prompts, explanations, and takeaways.
@@ -243,11 +242,11 @@ See **`docs/ai-usage-report.md`** for detailed examples of prompts, explanations
 
 ## Learning Outcomes
 
-- Building multi-step interaction flows (filtering systems, validation, persistence)
-- Implementing live external APIs with robust error handling
-- Deepening understanding of React hooks, async fetches, and derived state
-- Applying performance optimization techniques (compression, lazy loading)
-- Writing clean documentation for professional software delivery
+* Mastery of building **multi-step interaction flows** (filtering systems, persistent favorites, validation).
+* Implementing **live external APIs** with robust error handling and loading states.
+* Deepening understanding of **React hooks**, derived state, and asynchronous data fetching.
+* Applying **performance optimization** techniques (compression, lazy loading) for a professional product.
+* Practicing responsible use of AI tools for creativity and productivity.
 
 ---
 
@@ -263,5 +262,5 @@ Software Engineering Student : KFUPM
 
 ## License
 
-This project is part of **SWE 363 - Web Engineering (Assignment 3)**.  
+This project is part of **SWE 363 - Web Engineering (Assignment 4)**.  
 All assets and APIs are used for educational purposes only.
